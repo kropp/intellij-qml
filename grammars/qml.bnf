@@ -1,0 +1,19 @@
+{
+  parserClass = "name.kropp.intellij.qml.QmlParser"
+  extends = "com.intellij.extapi.psi.ASTWrapperPsiElement"
+
+  psiClassPrefix = "Qml"
+  psiImplClassSuffix = "Impl"
+  psiPackage = "name.kropp.intellij.qml.psi"
+  psiImplPackage = "name.kropp.intellij.qml.psi.impl"
+
+  elementTypeHolderClass = "name.kropp.intellij.qml.psi.QmlTypes"
+  elementTypeClass = "name.kropp.intellij.qml.psi.QmlElementType"
+  tokenTypeClass = "name.kropp.intellij.qml.psi.QmlTokenType"
+
+  tokens = []
+
+  psiImplUtilClass = "name.kropp.intellij.qml.psi.QmlPsiImplUtil"
+}
+
+qml ::=
