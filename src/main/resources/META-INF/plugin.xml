@@ -1,0 +1,27 @@
+<idea-plugin>
+    <id>name.kropp.intellij.makefile</id>
+    <name>QML support</name>
+    <version>0.1</version>
+    <vendor email="victor.kropp@gmail.com" url="https://victor.kropp.name/projects/intellij-qml/">Victor Kropp</vendor>
+
+    <description><![CDATA[
+  Support for Qt QML
+    ]]></description>
+
+    <change-notes><![CDATA[
+    ]]>
+    </change-notes>
+
+    <idea-version since-build="163.0" until-build="171.*"/>
+
+    <depends>com.intellij.modules.lang</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <fileTypeFactory implementation="name.kropp.intellij.qml.QmlFileTypeFactory"/>
+        <lang.parserDefinition language="Qml" implementationClass="name.kropp.intellij.qml.QmlParserDefinition"/>
+    </extensions>
+
+    <actions>
+    </actions>
+
+</idea-plugin>
