@@ -13,7 +13,9 @@
 
   tokens = []
 
-  psiImplUtilClass = "name.kropp.intellij.qml.psi.QmlPsiImplUtil"
+  //psiImplUtilClass = "name.kropp.intellij.qml.psi.QmlPsiImplUtil"
 }
 
-qml ::=
+qml ::= comment*
+
+comment ::=

@@ -23,7 +23,12 @@ public class QmlParser implements PsiParser, LightPsiParser {
     boolean r;
     b = adapt_builder_(t, b, this, null);
     Marker m = enter_section_(b, 0, _COLLAPSE_, null);
-    r = parse_root_(t, b, 0);
+    if (t == COMMENT) {
+      r = comment(b, 0);
+    }
+    else {
+      r = parse_root_(t, b, 0);
+    }
     exit_section_(b, 0, m, t, r, true, TRUE_CONDITION);
   }
 
@@ -32,7 +37,22 @@ public class QmlParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
+  public static boolean comment(PsiBuilder b, int l) {
+    Marker m = enter_section_(b);
+    exit_section_(b, m, COMMENT, true);
+    return true;
+  }
+
+  /* ********************************************************** */
+  // comment*
   static boolean qml(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "qml")) return false;
+    int c = current_position_(b);
+    while (true) {
+      if (!comment(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "qml", c)) break;
+      c = current_position_(b);
+    }
     return true;
   }
 

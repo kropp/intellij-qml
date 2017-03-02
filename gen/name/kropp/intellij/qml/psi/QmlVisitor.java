@@ -7,6 +7,10 @@ import com.intellij.psi.PsiElement;
 
 public class QmlVisitor extends PsiElementVisitor {
 
+  public void visitComment(@NotNull QmlComment o) {
+    visitPsiElement(o);
+  }
+
   public void visitPsiElement(@NotNull PsiElement o) {
     visitElement(o);
   }
