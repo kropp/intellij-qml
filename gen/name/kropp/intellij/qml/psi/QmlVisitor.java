@@ -11,6 +11,14 @@ public class QmlVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitImport(@NotNull QmlImport o) {
+    visitPsiElement(o);
+  }
+
+  public void visitObject(@NotNull QmlObject o) {
+    visitPsiElement(o);
+  }
+
   public void visitPsiElement(@NotNull PsiElement o) {
     visitElement(o);
   }

@@ -23,12 +23,21 @@ import static name.kropp.intellij.qml.psi.QmlTypes.*;
 %type IElementType
 %unicode
 
-COMMENT="//"[^\r\n]*
+COMMENT="//"[^\n]*
+WHITESPACE=[ \t\n]*
 
-%state TMP
+%state IMPORT OBJECT
 
 %%
 
 {COMMENT}              { return COMMENT; }
+{WHITESPACE}           { return WHITE_SPACE; }
+"import"               { yybegin(IMPORT); return KEYWORD_IMPORT; }
+'\{'                   { yybegin(OBJECT); return LBRACE; }
+'\}'                   { return RBRACE; }
+[char_class]*          { return TYPENAME; }
+
+<IMPORT> [^\n]*               { yybegin(YYINITIAL); return MODULE; }
+<OBJECT> [^\}]*               { yybegin(YYINITIAL); return FIELDS; }
 
 [^] { return BAD_CHARACTER; }

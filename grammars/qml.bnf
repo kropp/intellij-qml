@@ -11,11 +11,22 @@
   elementTypeClass = "name.kropp.intellij.qml.psi.QmlElementType"
   tokenTypeClass = "name.kropp.intellij.qml.psi.QmlTokenType"
 
-  tokens = []
+  tokens = [
+    KEYWORD_IMPORT = 'import'
+    LBRACE = '{'
+    RBRACE = '}'
+    MODULE = ''
+    FIELDS = ''
+    TYPENAME = ''
+  ]
 
   //psiImplUtilClass = "name.kropp.intellij.qml.psi.QmlPsiImplUtil"
 }
 
-qml ::= comment*
+qml ::= import* comment? object
+
+import ::= 'import' module
 
 comment ::=
+
+object ::= typename '{' fields '}'
