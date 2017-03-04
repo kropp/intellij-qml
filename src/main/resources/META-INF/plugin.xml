@@ -18,7 +18,7 @@
 
     <extensions defaultExtensionNs="com.intellij">
         <fileTypeFactory implementation="name.kropp.intellij.qml.QmlFileTypeFactory"/>
-        <lang.parserDefinition language="Qml" implementationClass="name.kropp.intellij.qml.QmlParserDefinition"/>
+        <lang.parserDefinition language="QML" implementationClass="name.kropp.intellij.qml.QmlParserDefinition"/>
     </extensions>
 
     <actions>
