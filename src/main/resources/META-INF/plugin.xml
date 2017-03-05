@@ -21,6 +21,7 @@
         <lang.parserDefinition language="QML" implementationClass="name.kropp.intellij.qml.QmlParserDefinition"/>
         <lang.syntaxHighlighterFactory language="QML" implementationClass="name.kropp.intellij.qml.QmlSyntaxHighlighterFactory"/>
         <annotator language="QML" implementationClass="name.kropp.intellij.qml.QmlAnnotator"/>
+        <lang.braceMatcher language="QML" implementationClass="name.kropp.intellij.qml.QmlPairedBraceMatcher"/>
     </extensions>
 
     <actions>
