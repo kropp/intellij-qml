@@ -30,7 +30,8 @@ import ::= 'import' module
 
 comment ::=
 
-object ::= typeName '{' properties '}'
+object ::= typeName body
+body ::= '{' properties '}'
 typeName ::= identifier
 properties ::= property*
 property ::= (propertyName ':')? (object|string|boolean|number|identifier|value)

@@ -8,6 +8,7 @@ import name.kropp.intellij.qml.psi.impl.*;
 
 public interface QmlTypes {
 
+  IElementType BODY = new QmlElementType("BODY");
   IElementType COMMENT = new QmlElementType("COMMENT");
   IElementType IMPORT = new QmlElementType("IMPORT");
   IElementType IMPORTS = new QmlElementType("IMPORTS");
@@ -33,7 +34,10 @@ public interface QmlTypes {
   class Factory {
     public static PsiElement createElement(ASTNode node) {
       IElementType type = node.getElementType();
-       if (type == COMMENT) {
+       if (type == BODY) {
+        return new QmlBodyImpl(node);
+      }
+      else if (type == COMMENT) {
         return new QmlCommentImpl(node);
       }
       else if (type == IMPORT) {

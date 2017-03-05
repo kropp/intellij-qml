@@ -5,12 +5,9 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface QmlObject extends PsiElement {
+public interface QmlBody extends PsiElement {
 
   @NotNull
-  QmlBody getBody();
-
-  @NotNull
-  QmlTypeName getTypeName();
+  QmlProperties getProperties();
 
 }

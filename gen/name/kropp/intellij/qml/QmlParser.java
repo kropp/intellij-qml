@@ -23,7 +23,10 @@ public class QmlParser implements PsiParser, LightPsiParser {
     boolean r;
     b = adapt_builder_(t, b, this, null);
     Marker m = enter_section_(b, 0, _COLLAPSE_, null);
-    if (t == COMMENT) {
+    if (t == BODY) {
+      r = body(b, 0);
+    }
+    else if (t == COMMENT) {
       r = comment(b, 0);
     }
     else if (t == IMPORT) {
@@ -55,6 +58,20 @@ public class QmlParser implements PsiParser, LightPsiParser {
 
   protected boolean parse_root_(IElementType t, PsiBuilder b, int l) {
     return qml(b, l + 1);
+  }
+
+  /* ********************************************************** */
+  // '{' properties '}'
+  public static boolean body(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "body")) return false;
+    if (!nextTokenIs(b, LBRACE)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, LBRACE);
+    r = r && properties(b, l + 1);
+    r = r && consumeToken(b, RBRACE);
+    exit_section_(b, m, BODY, r);
+    return r;
   }
 
   /* ********************************************************** */
@@ -108,16 +125,14 @@ public class QmlParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // typeName '{' properties '}'
+  // typeName body
   public static boolean object(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "object")) return false;
     if (!nextTokenIs(b, IDENTIFIER)) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = typeName(b, l + 1);
-    r = r && consumeToken(b, LBRACE);
-    r = r && properties(b, l + 1);
-    r = r && consumeToken(b, RBRACE);
+    r = r && body(b, l + 1);
     exit_section_(b, m, OBJECT, r);
     return r;
   }

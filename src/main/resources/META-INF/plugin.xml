@@ -22,6 +22,7 @@
         <lang.syntaxHighlighterFactory language="QML" implementationClass="name.kropp.intellij.qml.QmlSyntaxHighlighterFactory"/>
         <annotator language="QML" implementationClass="name.kropp.intellij.qml.QmlAnnotator"/>
         <lang.braceMatcher language="QML" implementationClass="name.kropp.intellij.qml.QmlPairedBraceMatcher"/>
+        <lang.foldingBuilder language="QML" implementationClass="name.kropp.intellij.qml.QmlFoldingBuilder"/>
     </extensions>
 
     <actions>
