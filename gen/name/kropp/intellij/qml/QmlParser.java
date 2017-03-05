@@ -29,8 +29,17 @@ public class QmlParser implements PsiParser, LightPsiParser {
     else if (t == IMPORT) {
       r = consumeToken(b, IMPORT_$);
     }
+    else if (t == IMPORTS) {
+      r = imports(b, 0);
+    }
     else if (t == OBJECT) {
       r = object(b, 0);
+    }
+    else if (t == PROPERTIES) {
+      r = properties(b, 0);
+    }
+    else if (t == PROPERTY) {
+      r = property(b, 0);
     }
     else {
       r = parse_root_(t, b, 0);
@@ -62,47 +71,111 @@ public class QmlParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // typename '{' fields '}'
-  public static boolean object(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "object")) return false;
-    if (!nextTokenIs(b, TYPENAME)) return false;
+  // import+
+  public static boolean imports(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "imports")) return false;
+    if (!nextTokenIs(b, KEYWORD_IMPORT)) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = consumeTokens(b, 0, TYPENAME, LBRACE, FIELDS, RBRACE);
+    r = import_$(b, l + 1);
+    int c = current_position_(b);
+    while (r) {
+      if (!import_$(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "imports", c)) break;
+      c = current_position_(b);
+    }
+    exit_section_(b, m, IMPORTS, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // identifier '{' properties '}'
+  public static boolean object(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "object")) return false;
+    if (!nextTokenIs(b, IDENTIFIER)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeTokens(b, 0, IDENTIFIER, LBRACE);
+    r = r && properties(b, l + 1);
+    r = r && consumeToken(b, RBRACE);
     exit_section_(b, m, OBJECT, r);
     return r;
   }
 
   /* ********************************************************** */
-  // import* comment? object
+  // property*
+  public static boolean properties(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "properties")) return false;
+    Marker m = enter_section_(b, l, _NONE_, PROPERTIES, "<properties>");
+    int c = current_position_(b);
+    while (true) {
+      if (!property(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "properties", c)) break;
+      c = current_position_(b);
+    }
+    exit_section_(b, l, m, true, false, null);
+    return true;
+  }
+
+  /* ********************************************************** */
+  // (identifier ':')? (object|identifier|value)
+  public static boolean property(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "property")) return false;
+    if (!nextTokenIs(b, "<property>", IDENTIFIER, VALUE)) return false;
+    boolean r;
+    Marker m = enter_section_(b, l, _NONE_, PROPERTY, "<property>");
+    r = property_0(b, l + 1);
+    r = r && property_1(b, l + 1);
+    exit_section_(b, l, m, r, false, null);
+    return r;
+  }
+
+  // (identifier ':')?
+  private static boolean property_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "property_0")) return false;
+    property_0_0(b, l + 1);
+    return true;
+  }
+
+  // identifier ':'
+  private static boolean property_0_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "property_0_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeTokens(b, 0, IDENTIFIER, COLON);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // object|identifier|value
+  private static boolean property_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "property_1")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = object(b, l + 1);
+    if (!r) r = consumeToken(b, IDENTIFIER);
+    if (!r) r = consumeToken(b, VALUE);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // imports? object
   static boolean qml(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "qml")) return false;
-    if (!nextTokenIs(b, "", KEYWORD_IMPORT, TYPENAME)) return false;
+    if (!nextTokenIs(b, "", KEYWORD_IMPORT, IDENTIFIER)) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = qml_0(b, l + 1);
-    r = r && qml_1(b, l + 1);
     r = r && object(b, l + 1);
     exit_section_(b, m, null, r);
     return r;
   }
 
-  // import*
+  // imports?
   private static boolean qml_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "qml_0")) return false;
-    int c = current_position_(b);
-    while (true) {
-      if (!import_$(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "qml_0", c)) break;
-      c = current_position_(b);
-    }
-    return true;
-  }
-
-  // comment?
-  private static boolean qml_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "qml_1")) return false;
-    comment(b, l + 1);
+    imports(b, l + 1);
     return true;
   }
 

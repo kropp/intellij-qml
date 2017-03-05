@@ -10,15 +10,19 @@ public interface QmlTypes {
 
   IElementType COMMENT = new QmlElementType("COMMENT");
   IElementType IMPORT = new QmlElementType("IMPORT");
+  IElementType IMPORTS = new QmlElementType("IMPORTS");
   IElementType OBJECT = new QmlElementType("OBJECT");
+  IElementType PROPERTIES = new QmlElementType("PROPERTIES");
+  IElementType PROPERTY = new QmlElementType("PROPERTY");
 
-  IElementType FIELDS = new QmlTokenType("fields");
+  IElementType COLON = new QmlTokenType(":");
+  IElementType IDENTIFIER = new QmlTokenType("identifier");
   IElementType IMPORT_$ = new QmlTokenType("import_$");
   IElementType KEYWORD_IMPORT = new QmlTokenType("import");
   IElementType LBRACE = new QmlTokenType("{");
   IElementType MODULE = new QmlTokenType("module");
   IElementType RBRACE = new QmlTokenType("}");
-  IElementType TYPENAME = new QmlTokenType("typename");
+  IElementType VALUE = new QmlTokenType("value");
 
   class Factory {
     public static PsiElement createElement(ASTNode node) {
@@ -29,8 +33,17 @@ public interface QmlTypes {
       else if (type == IMPORT) {
         return new QmlImportImpl(node);
       }
+      else if (type == IMPORTS) {
+        return new QmlImportsImpl(node);
+      }
       else if (type == OBJECT) {
         return new QmlObjectImpl(node);
+      }
+      else if (type == PROPERTIES) {
+        return new QmlPropertiesImpl(node);
+      }
+      else if (type == PROPERTY) {
+        return new QmlPropertyImpl(node);
       }
       throw new AssertionError("Unknown element type: " + type);
     }

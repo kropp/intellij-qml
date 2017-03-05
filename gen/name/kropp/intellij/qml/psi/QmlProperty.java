@@ -5,9 +5,9 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface QmlObject extends PsiElement {
+public interface QmlProperty extends PsiElement {
 
-  @NotNull
-  QmlProperties getProperties();
+  @Nullable
+  QmlObject getObject();
 
 }

@@ -15,18 +15,19 @@
     KEYWORD_IMPORT = 'import'
     LBRACE = '{'
     RBRACE = '}'
-    MODULE = ''
-    FIELDS = ''
-    TYPENAME = ''
+    COLON = ':'
   ]
 
   //psiImplUtilClass = "name.kropp.intellij.qml.psi.QmlPsiImplUtil"
 }
 
-qml ::= import* comment? object
+qml ::= imports? object
 
+imports ::= import+
 import ::= 'import' module
 
 comment ::=
 
-object ::= typename '{' fields '}'
+object ::= identifier '{' properties '}'
+properties ::= property*
+property ::= (identifier ':')? (object|identifier|value)

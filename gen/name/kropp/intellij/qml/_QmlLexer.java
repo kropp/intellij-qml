@@ -27,7 +27,6 @@ public class _QmlLexer implements FlexLexer {
   /** lexical states */
   public static final int YYINITIAL = 0;
   public static final int IMPORT = 2;
-  public static final int OBJECT = 4;
 
   /**
    * ZZ_LEXSTATE[l] is the state in the DFA for the lexical state l
@@ -36,7 +35,7 @@ public class _QmlLexer implements FlexLexer {
    * l is of the form l = 2*k, k a non negative integer
    */
   private static final int ZZ_LEXSTATE[] = { 
-     0,  0,  1,  1,  2, 2
+     0,  0,  1, 1
   };
 
   /** 
@@ -58,9 +57,9 @@ public class _QmlLexer implements FlexLexer {
 
   /* The ZZ_CMAP_A table has 256 entries */
   static final char ZZ_CMAP_A[] = zzUnpackCMap(
-    "\11\0\1\3\1\2\25\0\1\3\6\0\1\12\7\0\1\1\57\0\1\15\1\0\1\15\1\0\1\15\4\0\1"+
-    "\15\1\4\2\0\1\15\1\5\1\0\1\7\1\6\1\0\1\10\1\15\1\11\6\0\1\13\1\0\1\14\202"+
-    "\0");
+    "\11\0\1\3\1\2\25\0\1\3\1\0\1\4\3\0\1\17\1\0\2\17\4\0\1\16\1\1\12\16\1\15\1"+
+    "\17\5\0\32\16\6\0\10\16\1\5\3\16\1\6\1\16\1\10\1\7\1\16\1\11\1\16\1\12\6\16"+
+    "\1\13\1\0\1\14\202\0");
 
   /** 
    * Translates DFA states to action switch labels.
@@ -68,14 +67,12 @@ public class _QmlLexer implements FlexLexer {
   private static final int [] ZZ_ACTION = zzUnpackAction();
 
   private static final String ZZ_ACTION_PACKED_0 =
-    "\3\1\2\2\1\1\1\2\1\3\1\2\2\4\1\1"+
-    "\1\4\1\3\1\4\2\5\1\1\1\5\1\3\1\5"+
-    "\1\6\3\0\3\4\1\6\2\5\1\0\1\7\1\10"+
-    "\1\4\1\7\1\10\1\5\1\7\1\0\1\4\1\5"+
-    "\1\0\1\4\1\5\3\11";
+    "\2\0\2\1\1\2\1\1\2\3\1\4\1\5\1\6"+
+    "\1\7\2\10\1\2\1\10\2\3\1\4\1\5\1\6"+
+    "\1\7\1\11\1\0\1\7\1\3\1\7\7\3\2\12";
 
   private static int [] zzUnpackAction() {
-    int [] result = new int[48];
+    int [] result = new int[36];
     int offset = 0;
     offset = zzUnpackAction(ZZ_ACTION_PACKED_0, offset, result);
     return result;
@@ -100,15 +97,14 @@ public class _QmlLexer implements FlexLexer {
   private static final int [] ZZ_ROWMAP = zzUnpackRowMap();
 
   private static final String ZZ_ROWMAP_PACKED_0 =
-    "\0\0\0\16\0\34\0\52\0\70\0\106\0\124\0\142"+
-    "\0\160\0\176\0\214\0\232\0\250\0\266\0\304\0\322"+
-    "\0\340\0\356\0\374\0\u010a\0\u0118\0\u0126\0\u0134\0\u0142"+
-    "\0\u0150\0\u015e\0\u016c\0\u017a\0\u0188\0\u0196\0\u01a4\0\u01b2"+
-    "\0\52\0\52\0\u01c0\0\176\0\176\0\u01ce\0\322\0\u01dc"+
-    "\0\u01ea\0\u01f8\0\u0206\0\u0214\0\u0222\0\52\0\176\0\322";
+    "\0\0\0\20\0\40\0\60\0\100\0\120\0\140\0\160"+
+    "\0\40\0\40\0\40\0\200\0\220\0\240\0\260\0\300"+
+    "\0\320\0\340\0\220\0\220\0\220\0\360\0\u0100\0\120"+
+    "\0\40\0\u0110\0\220\0\u0120\0\u0130\0\u0140\0\u0150\0\u0160"+
+    "\0\u0170\0\u0180\0\160\0\340";
 
   private static int [] zzUnpackRowMap() {
-    int [] result = new int[48];
+    int [] result = new int[36];
     int offset = 0;
     offset = zzUnpackRowMap(ZZ_ROWMAP_PACKED_0, offset, result);
     return result;
@@ -131,31 +127,28 @@ public class _QmlLexer implements FlexLexer {
   private static final int [] ZZ_TRANS = zzUnpackTrans();
 
   private static final String ZZ_TRANS_PACKED_0 =
-    "\1\4\1\5\2\6\1\7\3\4\1\10\1\4\1\11"+
-    "\2\4\1\10\1\12\1\13\1\6\1\14\1\15\3\12"+
-    "\1\16\1\12\1\17\2\12\1\16\1\20\1\21\2\22"+
-    "\1\23\3\20\1\24\1\20\1\25\1\20\1\4\1\24"+
-    "\17\0\1\26\16\0\2\6\17\0\1\27\20\0\1\10"+
-    "\4\0\1\10\13\0\1\30\1\31\1\0\2\12\1\0"+
-    "\14\12\1\26\1\0\15\12\1\6\1\14\14\12\1\0"+
-    "\2\12\1\32\12\12\1\0\5\12\1\16\4\12\1\16"+
-    "\2\12\1\0\10\12\1\33\1\34\1\12\14\20\1\0"+
-    "\2\20\1\35\12\20\1\0\3\20\2\22\10\20\1\0"+
-    "\6\20\1\36\6\20\1\0\11\20\1\24\3\20\1\0"+
-    "\1\24\13\20\1\37\1\31\1\20\2\26\1\0\13\26"+
-    "\6\0\1\40\21\0\1\41\15\0\1\42\3\0\2\12"+
-    "\1\0\3\12\1\43\11\12\1\0\7\12\1\44\5\12"+
-    "\1\0\7\12\1\45\3\12\2\35\1\20\11\35\1\26"+
-    "\1\35\6\20\1\46\5\20\1\0\13\20\1\47\1\20"+
-    "\1\0\1\20\7\0\1\50\6\0\2\12\1\0\4\12"+
-    "\1\51\6\12\7\20\1\52\4\20\1\0\1\20\10\0"+
-    "\1\53\5\0\2\12\1\0\5\12\1\54\5\12\10\20"+
-    "\1\55\3\20\1\0\1\20\11\0\1\56\4\0\2\12"+
-    "\1\0\6\12\1\57\4\12\11\20\1\60\2\20\1\0"+
-    "\1\20";
+    "\1\3\1\4\2\5\1\6\1\7\5\10\1\11\1\12"+
+    "\1\13\1\10\1\14\1\15\1\16\1\5\1\17\1\20"+
+    "\1\21\5\22\1\23\1\24\1\25\1\22\1\26\21\0"+
+    "\1\27\20\0\2\5\14\0\4\30\1\31\13\30\5\0"+
+    "\1\10\1\32\4\10\3\0\1\10\1\14\5\0\6\10"+
+    "\3\0\1\10\1\14\5\0\6\14\3\0\2\14\2\15"+
+    "\1\0\16\15\1\27\1\0\17\15\1\5\1\17\14\15"+
+    "\2\20\1\30\1\20\1\33\13\20\2\15\1\0\2\15"+
+    "\1\22\1\34\4\22\3\15\1\22\1\26\2\15\1\0"+
+    "\2\15\6\22\3\15\1\22\1\26\2\15\1\0\2\15"+
+    "\6\26\3\15\2\26\2\27\1\0\15\27\5\0\2\10"+
+    "\1\35\3\10\3\0\1\10\1\14\2\15\1\0\2\15"+
+    "\2\22\1\36\3\22\3\15\1\22\1\26\5\0\3\10"+
+    "\1\37\2\10\3\0\1\10\1\14\2\15\1\0\2\15"+
+    "\3\22\1\40\2\22\3\15\1\22\1\26\5\0\4\10"+
+    "\1\41\1\10\3\0\1\10\1\14\2\15\1\0\2\15"+
+    "\4\22\1\42\1\22\3\15\1\22\1\26\5\0\5\10"+
+    "\1\43\3\0\1\10\1\14\2\15\1\0\2\15\5\22"+
+    "\1\44\3\15\1\22\1\26";
 
   private static int [] zzUnpackTrans() {
-    int [] result = new int[560];
+    int [] result = new int[400];
     int offset = 0;
     offset = zzUnpackTrans(ZZ_TRANS_PACKED_0, offset, result);
     return result;
@@ -193,11 +186,10 @@ public class _QmlLexer implements FlexLexer {
   private static final int [] ZZ_ATTRIBUTE = zzUnpackAttribute();
 
   private static final String ZZ_ATTRIBUTE_PACKED_0 =
-    "\3\1\1\11\22\1\3\0\6\1\1\0\2\11\5\1"+
-    "\1\0\2\1\1\0\2\1\1\11\2\1";
+    "\2\0\1\11\5\1\3\11\14\1\1\0\1\11\13\1";
 
   private static int [] zzUnpackAttribute() {
-    int [] result = new int[48];
+    int [] result = new int[36];
     int offset = 0;
     offset = zzUnpackAttribute(ZZ_ATTRIBUTE_PACKED_0, offset, result);
     return result;
@@ -503,41 +495,45 @@ public class _QmlLexer implements FlexLexer {
       else {
         switch (zzAction < 0 ? zzAction : ZZ_ACTION[zzAction]) {
           case 1: 
-            { return WHITE_SPACE;
-            }
-          case 10: break;
-          case 2: 
             { return BAD_CHARACTER;
             }
           case 11: break;
-          case 3: 
-            { return TYPENAME;
+          case 2: 
+            { return WHITE_SPACE;
             }
           case 12: break;
-          case 4: 
-            { yybegin(YYINITIAL); return MODULE;
+          case 3: 
+            { return IDENTIFIER;
             }
           case 13: break;
-          case 5: 
-            { yybegin(YYINITIAL); return FIELDS;
+          case 4: 
+            { return LBRACE;
             }
           case 14: break;
-          case 6: 
-            { return COMMENT;
-            }
-          case 15: break;
-          case 7: 
-            { yybegin(OBJECT); return LBRACE;
-            }
-          case 16: break;
-          case 8: 
+          case 5: 
             { return RBRACE;
             }
+          case 15: break;
+          case 6: 
+            { return COLON;
+            }
+          case 16: break;
+          case 7: 
+            { return VALUE;
+            }
           case 17: break;
-          case 9: 
-            { yybegin(IMPORT); return KEYWORD_IMPORT;
+          case 8: 
+            { yybegin(YYINITIAL); return MODULE;
             }
           case 18: break;
+          case 9: 
+            { return COMMENT;
+            }
+          case 19: break;
+          case 10: 
+            { yybegin(IMPORT); return KEYWORD_IMPORT;
+            }
+          case 20: break;
           default:
             zzScanError(ZZ_NO_MATCH);
           }

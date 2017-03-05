@@ -24,20 +24,24 @@ import static name.kropp.intellij.qml.psi.QmlTypes.*;
 %unicode
 
 COMMENT="//"[^\n]*
-WHITESPACE=[ \t\n]*
+WHITESPACE=[ \t\n]+
+STRING="\""[^\"]*"\""
 
-%state IMPORT OBJECT
+%state IMPORT
 
 %%
 
 {COMMENT}              { return COMMENT; }
 {WHITESPACE}           { return WHITE_SPACE; }
 "import"               { yybegin(IMPORT); return KEYWORD_IMPORT; }
-'\{'                   { yybegin(OBJECT); return LBRACE; }
-'\}'                   { return RBRACE; }
-[char_class]*          { return TYPENAME; }
+"\{"                   { return LBRACE; }
+"\}"                   { return RBRACE; }
+":"                    { return COLON; }
+[a-zA-Z0-9\.]+         { return IDENTIFIER; }
+{STRING}               { return VALUE; }
+[a-zA-Z0-9\.\(\)\;\&]+ { return VALUE; }
 
-<IMPORT> [^\n]*               { yybegin(YYINITIAL); return MODULE; }
-<OBJECT> [^\}]*               { yybegin(YYINITIAL); return FIELDS; }
+<IMPORT> [^\n]+               { yybegin(YYINITIAL); return MODULE; }
+
 
 [^] { return BAD_CHARACTER; }
