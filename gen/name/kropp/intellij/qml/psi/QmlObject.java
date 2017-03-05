@@ -10,4 +10,7 @@ public interface QmlObject extends PsiElement {
   @NotNull
   QmlProperties getProperties();
 
+  @NotNull
+  QmlTypeName getTypeName();
+
 }

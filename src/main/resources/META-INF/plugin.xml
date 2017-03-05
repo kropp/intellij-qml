@@ -20,6 +20,7 @@
         <fileTypeFactory implementation="name.kropp.intellij.qml.QmlFileTypeFactory"/>
         <lang.parserDefinition language="QML" implementationClass="name.kropp.intellij.qml.QmlParserDefinition"/>
         <lang.syntaxHighlighterFactory language="QML" implementationClass="name.kropp.intellij.qml.QmlSyntaxHighlighterFactory"/>
+        <annotator language="QML" implementationClass="name.kropp.intellij.qml.QmlAnnotator"/>
     </extensions>
 
     <actions>

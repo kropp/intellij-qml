@@ -41,6 +41,12 @@ public class QmlParser implements PsiParser, LightPsiParser {
     else if (t == PROPERTY) {
       r = property(b, 0);
     }
+    else if (t == PROPERTY_NAME) {
+      r = propertyName(b, 0);
+    }
+    else if (t == TYPE_NAME) {
+      r = typeName(b, 0);
+    }
     else {
       r = parse_root_(t, b, 0);
     }
@@ -102,13 +108,14 @@ public class QmlParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // identifier '{' properties '}'
+  // typeName '{' properties '}'
   public static boolean object(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "object")) return false;
     if (!nextTokenIs(b, IDENTIFIER)) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = consumeTokens(b, 0, IDENTIFIER, LBRACE);
+    r = typeName(b, l + 1);
+    r = r && consumeToken(b, LBRACE);
     r = r && properties(b, l + 1);
     r = r && consumeToken(b, RBRACE);
     exit_section_(b, m, OBJECT, r);
@@ -131,7 +138,7 @@ public class QmlParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // (identifier ':')? (object|string|boolean|number|identifier|value)
+  // (propertyName ':')? (object|string|boolean|number|identifier|value)
   public static boolean property(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "property")) return false;
     boolean r;
@@ -142,19 +149,20 @@ public class QmlParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // (identifier ':')?
+  // (propertyName ':')?
   private static boolean property_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "property_0")) return false;
     property_0_0(b, l + 1);
     return true;
   }
 
-  // identifier ':'
+  // propertyName ':'
   private static boolean property_0_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "property_0_0")) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = consumeTokens(b, 0, IDENTIFIER, COLON);
+    r = propertyName(b, l + 1);
+    r = r && consumeToken(b, COLON);
     exit_section_(b, m, null, r);
     return r;
   }
@@ -171,6 +179,18 @@ public class QmlParser implements PsiParser, LightPsiParser {
     if (!r) r = consumeToken(b, IDENTIFIER);
     if (!r) r = consumeToken(b, VALUE);
     exit_section_(b, m, null, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // identifier
+  public static boolean propertyName(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "propertyName")) return false;
+    if (!nextTokenIs(b, IDENTIFIER)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, IDENTIFIER);
+    exit_section_(b, m, PROPERTY_NAME, r);
     return r;
   }
 
@@ -192,6 +212,18 @@ public class QmlParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "qml_0")) return false;
     imports(b, l + 1);
     return true;
+  }
+
+  /* ********************************************************** */
+  // identifier
+  public static boolean typeName(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "typeName")) return false;
+    if (!nextTokenIs(b, IDENTIFIER)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, IDENTIFIER);
+    exit_section_(b, m, TYPE_NAME, r);
+    return r;
   }
 
 }

@@ -14,6 +14,8 @@ public interface QmlTypes {
   IElementType OBJECT = new QmlElementType("OBJECT");
   IElementType PROPERTIES = new QmlElementType("PROPERTIES");
   IElementType PROPERTY = new QmlElementType("PROPERTY");
+  IElementType PROPERTY_NAME = new QmlElementType("PROPERTY_NAME");
+  IElementType TYPE_NAME = new QmlElementType("TYPE_NAME");
 
   IElementType COLON = new QmlTokenType(":");
   IElementType FALSE = new QmlTokenType("false");
@@ -48,6 +50,12 @@ public interface QmlTypes {
       }
       else if (type == PROPERTY) {
         return new QmlPropertyImpl(node);
+      }
+      else if (type == PROPERTY_NAME) {
+        return new QmlPropertyNameImpl(node);
+      }
+      else if (type == TYPE_NAME) {
+        return new QmlTypeNameImpl(node);
       }
       throw new AssertionError("Unknown element type: " + type);
     }
