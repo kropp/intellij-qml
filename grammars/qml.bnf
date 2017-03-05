@@ -16,6 +16,8 @@
     LBRACE = '{'
     RBRACE = '}'
     COLON = ':'
+    TRUE = 'true'
+    FALSE = 'false'
   ]
 
   //psiImplUtilClass = "name.kropp.intellij.qml.psi.QmlPsiImplUtil"
@@ -30,4 +32,5 @@ comment ::=
 
 object ::= identifier '{' properties '}'
 properties ::= property*
-property ::= (identifier ':')? (object|identifier|value)
+property ::= (identifier ':')? (object|string|boolean|number|identifier|value)
+private boolean ::= 'true'|'false'

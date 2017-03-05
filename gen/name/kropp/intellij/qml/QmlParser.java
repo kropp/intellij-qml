@@ -52,6 +52,19 @@ public class QmlParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
+  // 'true'|'false'
+  static boolean boolean_$(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "boolean_$")) return false;
+    if (!nextTokenIs(b, "", FALSE, TRUE)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, TRUE);
+    if (!r) r = consumeToken(b, FALSE);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  /* ********************************************************** */
   public static boolean comment(PsiBuilder b, int l) {
     Marker m = enter_section_(b);
     exit_section_(b, m, COMMENT, true);
@@ -118,10 +131,9 @@ public class QmlParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // (identifier ':')? (object|identifier|value)
+  // (identifier ':')? (object|string|boolean|number|identifier|value)
   public static boolean property(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "property")) return false;
-    if (!nextTokenIs(b, "<property>", IDENTIFIER, VALUE)) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, PROPERTY, "<property>");
     r = property_0(b, l + 1);
@@ -147,12 +159,15 @@ public class QmlParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // object|identifier|value
+  // object|string|boolean|number|identifier|value
   private static boolean property_1(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "property_1")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = object(b, l + 1);
+    if (!r) r = consumeToken(b, STRING);
+    if (!r) r = boolean_$(b, l + 1);
+    if (!r) r = consumeToken(b, NUMBER);
     if (!r) r = consumeToken(b, IDENTIFIER);
     if (!r) r = consumeToken(b, VALUE);
     exit_section_(b, m, null, r);

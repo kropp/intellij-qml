@@ -16,12 +16,16 @@ public interface QmlTypes {
   IElementType PROPERTY = new QmlElementType("PROPERTY");
 
   IElementType COLON = new QmlTokenType(":");
+  IElementType FALSE = new QmlTokenType("false");
   IElementType IDENTIFIER = new QmlTokenType("identifier");
   IElementType IMPORT_$ = new QmlTokenType("import_$");
   IElementType KEYWORD_IMPORT = new QmlTokenType("import");
   IElementType LBRACE = new QmlTokenType("{");
   IElementType MODULE = new QmlTokenType("module");
+  IElementType NUMBER = new QmlTokenType("number");
   IElementType RBRACE = new QmlTokenType("}");
+  IElementType STRING = new QmlTokenType("string");
+  IElementType TRUE = new QmlTokenType("true");
   IElementType VALUE = new QmlTokenType("value");
 
   class Factory {

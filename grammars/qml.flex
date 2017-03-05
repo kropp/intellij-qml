@@ -34,11 +34,14 @@ STRING="\""[^\"]*"\""
 {COMMENT}              { return COMMENT; }
 {WHITESPACE}           { return WHITE_SPACE; }
 "import"               { yybegin(IMPORT); return KEYWORD_IMPORT; }
+"true"                 { return TRUE; }
+"false"                { return FALSE; }
 "\{"                   { return LBRACE; }
 "\}"                   { return RBRACE; }
 ":"                    { return COLON; }
+[0-9\.]+               { return NUMBER; }
 [a-zA-Z0-9\.]+         { return IDENTIFIER; }
-{STRING}               { return VALUE; }
+{STRING}               { return STRING; }
 [a-zA-Z0-9\.\(\)\;\&]+ { return VALUE; }
 
 <IMPORT> [^\n]+               { yybegin(YYINITIAL); return MODULE; }
