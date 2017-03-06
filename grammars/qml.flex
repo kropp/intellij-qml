@@ -23,7 +23,8 @@ import static name.kropp.intellij.qml.psi.QmlTypes.*;
 %type IElementType
 %unicode
 
-COMMENT="//"[^\n]*
+END_OF_LINE_COMMENT="//"[^\n]*
+BLOCK_COMMENT="/*" ( ([^"*"]|[\r\n])* ("*"+ [^"*""/"] )? )* ("*" | "*"+"/")?
 WHITESPACE=[ \t\n]+
 STRING="\""[^\"]*"\""
 
@@ -31,7 +32,8 @@ STRING="\""[^\"]*"\""
 
 %%
 
-{COMMENT}              { return COMMENT; }
+{END_OF_LINE_COMMENT}  { return COMMENT; }
+{BLOCK_COMMENT}        { return COMMENT; }
 {WHITESPACE}           { return WHITE_SPACE; }
 "import"               { yybegin(IMPORT); return KEYWORD_IMPORT; }
 "true"                 { return TRUE; }
