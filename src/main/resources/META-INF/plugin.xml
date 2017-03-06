@@ -1,14 +1,15 @@
 <idea-plugin>
-    <id>name.kropp.intellij.makefile</id>
+    <id>name.kropp.intellij.qml</id>
     <name>QML support</name>
     <version>0.1</version>
     <vendor email="victor.kropp@gmail.com" url="https://victor.kropp.name/projects/intellij-qml/">Victor Kropp</vendor>
 
     <description><![CDATA[
-  Support for Qt QML
+Support for Qt QML
     ]]></description>
 
     <change-notes><![CDATA[
+First preview
     ]]>
     </change-notes>
 
@@ -21,6 +22,7 @@
         <lang.parserDefinition language="QML" implementationClass="name.kropp.intellij.qml.QmlParserDefinition"/>
         <lang.syntaxHighlighterFactory language="QML" implementationClass="name.kropp.intellij.qml.QmlSyntaxHighlighterFactory"/>
         <annotator language="QML" implementationClass="name.kropp.intellij.qml.QmlAnnotator"/>
+        <lang.commenter language="QML" implementationClass="name.kropp.intellij.qml.QmlCommenter"/>
         <lang.braceMatcher language="QML" implementationClass="name.kropp.intellij.qml.QmlPairedBraceMatcher"/>
         <lang.foldingBuilder language="QML" implementationClass="name.kropp.intellij.qml.QmlFoldingBuilder"/>
     </extensions>
