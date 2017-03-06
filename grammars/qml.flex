@@ -32,8 +32,8 @@ STRING="\""[^\"]*"\""
 
 %%
 
-{END_OF_LINE_COMMENT}  { return COMMENT; }
-{BLOCK_COMMENT}        { return COMMENT; }
+{END_OF_LINE_COMMENT}  { return LINE_COMMENT; }
+{BLOCK_COMMENT}        { return BLOCK_COMMENT; }
 {WHITESPACE}           { return WHITE_SPACE; }
 "import"               { yybegin(IMPORT); return KEYWORD_IMPORT; }
 "true"                 { return TRUE; }

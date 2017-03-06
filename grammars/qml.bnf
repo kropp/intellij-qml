@@ -28,7 +28,8 @@ qml ::= imports? object
 imports ::= import+
 import ::= 'import' module
 
-comment ::=
+line_comment ::=
+block_comment ::=
 
 object ::= typeName body
 body ::= '{' properties '}'

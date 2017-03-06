@@ -69,10 +69,10 @@ public class _QmlLexer implements FlexLexer {
   private static final String ZZ_ACTION_PACKED_0 =
     "\2\0\2\1\1\2\1\1\4\3\1\4\1\5\1\6"+
     "\1\7\1\10\2\11\1\2\1\11\4\3\1\4\1\5"+
-    "\1\6\1\7\1\10\2\12\1\0\1\13\3\3\1\12"+
-    "\1\13\3\3\1\12\3\3\1\12\3\3\1\12\1\0"+
-    "\1\3\1\14\1\3\1\12\1\11\1\3\1\14\2\3"+
-    "\1\15\1\3\1\15\2\16";
+    "\1\6\1\7\1\10\1\12\1\13\1\0\1\14\3\3"+
+    "\1\13\1\14\3\3\1\13\3\3\1\13\3\3\1\13"+
+    "\1\0\1\3\1\15\1\3\1\13\1\11\1\3\1\15"+
+    "\2\3\1\16\1\3\1\16\2\17";
 
   private static int [] zzUnpackAction() {
     int [] result = new int[64];
@@ -524,59 +524,63 @@ public class _QmlLexer implements FlexLexer {
           case 1: 
             { return BAD_CHARACTER;
             }
-          case 15: break;
+          case 16: break;
           case 2: 
             { return WHITE_SPACE;
             }
-          case 16: break;
+          case 17: break;
           case 3: 
             { return IDENTIFIER;
             }
-          case 17: break;
+          case 18: break;
           case 4: 
             { return LBRACE;
             }
-          case 18: break;
+          case 19: break;
           case 5: 
             { return RBRACE;
             }
-          case 19: break;
+          case 20: break;
           case 6: 
             { return COLON;
             }
-          case 20: break;
+          case 21: break;
           case 7: 
             { return NUMBER;
             }
-          case 21: break;
+          case 22: break;
           case 8: 
             { return VALUE;
             }
-          case 22: break;
+          case 23: break;
           case 9: 
             { yybegin(YYINITIAL); return MODULE;
             }
-          case 23: break;
-          case 10: 
-            { return COMMENT;
-            }
           case 24: break;
-          case 11: 
-            { return STRING;
+          case 10: 
+            { return LINE_COMMENT;
             }
           case 25: break;
-          case 12: 
-            { return TRUE;
+          case 11: 
+            { return BLOCK_COMMENT;
             }
           case 26: break;
-          case 13: 
-            { return FALSE;
+          case 12: 
+            { return STRING;
             }
           case 27: break;
-          case 14: 
-            { yybegin(IMPORT); return KEYWORD_IMPORT;
+          case 13: 
+            { return TRUE;
             }
           case 28: break;
+          case 14: 
+            { return FALSE;
+            }
+          case 29: break;
+          case 15: 
+            { yybegin(IMPORT); return KEYWORD_IMPORT;
+            }
+          case 30: break;
           default:
             zzScanError(ZZ_NO_MATCH);
           }

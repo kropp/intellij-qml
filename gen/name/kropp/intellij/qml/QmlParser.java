@@ -23,17 +23,20 @@ public class QmlParser implements PsiParser, LightPsiParser {
     boolean r;
     b = adapt_builder_(t, b, this, null);
     Marker m = enter_section_(b, 0, _COLLAPSE_, null);
-    if (t == BODY) {
-      r = body(b, 0);
+    if (t == BLOCK_COMMENT) {
+      r = block_comment(b, 0);
     }
-    else if (t == COMMENT) {
-      r = comment(b, 0);
+    else if (t == BODY) {
+      r = body(b, 0);
     }
     else if (t == IMPORT) {
       r = consumeToken(b, IMPORT_$);
     }
     else if (t == IMPORTS) {
       r = imports(b, 0);
+    }
+    else if (t == LINE_COMMENT) {
+      r = line_comment(b, 0);
     }
     else if (t == OBJECT) {
       r = object(b, 0);
@@ -58,6 +61,13 @@ public class QmlParser implements PsiParser, LightPsiParser {
 
   protected boolean parse_root_(IElementType t, PsiBuilder b, int l) {
     return qml(b, l + 1);
+  }
+
+  /* ********************************************************** */
+  public static boolean block_comment(PsiBuilder b, int l) {
+    Marker m = enter_section_(b);
+    exit_section_(b, m, BLOCK_COMMENT, true);
+    return true;
   }
 
   /* ********************************************************** */
@@ -88,13 +98,6 @@ public class QmlParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  public static boolean comment(PsiBuilder b, int l) {
-    Marker m = enter_section_(b);
-    exit_section_(b, m, COMMENT, true);
-    return true;
-  }
-
-  /* ********************************************************** */
   // 'import' module
   public static boolean import_$(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "import_$")) return false;
@@ -122,6 +125,13 @@ public class QmlParser implements PsiParser, LightPsiParser {
     }
     exit_section_(b, m, IMPORTS, r);
     return r;
+  }
+
+  /* ********************************************************** */
+  public static boolean line_comment(PsiBuilder b, int l) {
+    Marker m = enter_section_(b);
+    exit_section_(b, m, LINE_COMMENT, true);
+    return true;
   }
 
   /* ********************************************************** */

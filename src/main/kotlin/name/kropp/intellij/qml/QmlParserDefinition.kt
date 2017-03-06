@@ -13,7 +13,7 @@ import name.kropp.intellij.qml.psi.QmlTypes
 class QmlParserDefinition : ParserDefinition {
   companion object {
     val WHITE_SPACES = TokenSet.create(TokenType.WHITE_SPACE)
-    val COMMENTS = TokenSet.create(QmlTypes.COMMENT)
+    val COMMENTS = TokenSet.create(QmlTypes.LINE_COMMENT, QmlTypes.BLOCK_COMMENT)
 
     val FILE = IFileElementType(Language.findInstance(QmlLanguage::class.java))
   }

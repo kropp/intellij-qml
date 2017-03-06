@@ -11,14 +11,14 @@ import static name.kropp.intellij.qml.psi.QmlTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import name.kropp.intellij.qml.psi.*;
 
-public class QmlCommentImpl extends ASTWrapperPsiElement implements QmlComment {
+public class QmlLineCommentImpl extends ASTWrapperPsiElement implements QmlLineComment {
 
-  public QmlCommentImpl(ASTNode node) {
+  public QmlLineCommentImpl(ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull QmlVisitor visitor) {
-    visitor.visitComment(this);
+    visitor.visitLineComment(this);
   }
 
   public void accept(@NotNull PsiElementVisitor visitor) {

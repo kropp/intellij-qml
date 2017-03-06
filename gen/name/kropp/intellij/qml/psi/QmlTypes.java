@@ -8,10 +8,11 @@ import name.kropp.intellij.qml.psi.impl.*;
 
 public interface QmlTypes {
 
+  IElementType BLOCK_COMMENT = new QmlElementType("BLOCK_COMMENT");
   IElementType BODY = new QmlElementType("BODY");
-  IElementType COMMENT = new QmlElementType("COMMENT");
   IElementType IMPORT = new QmlElementType("IMPORT");
   IElementType IMPORTS = new QmlElementType("IMPORTS");
+  IElementType LINE_COMMENT = new QmlElementType("LINE_COMMENT");
   IElementType OBJECT = new QmlElementType("OBJECT");
   IElementType PROPERTIES = new QmlElementType("PROPERTIES");
   IElementType PROPERTY = new QmlElementType("PROPERTY");
@@ -34,17 +35,20 @@ public interface QmlTypes {
   class Factory {
     public static PsiElement createElement(ASTNode node) {
       IElementType type = node.getElementType();
-       if (type == BODY) {
-        return new QmlBodyImpl(node);
+       if (type == BLOCK_COMMENT) {
+        return new QmlBlockCommentImpl(node);
       }
-      else if (type == COMMENT) {
-        return new QmlCommentImpl(node);
+      else if (type == BODY) {
+        return new QmlBodyImpl(node);
       }
       else if (type == IMPORT) {
         return new QmlImportImpl(node);
       }
       else if (type == IMPORTS) {
         return new QmlImportsImpl(node);
+      }
+      else if (type == LINE_COMMENT) {
+        return new QmlLineCommentImpl(node);
       }
       else if (type == OBJECT) {
         return new QmlObjectImpl(node);

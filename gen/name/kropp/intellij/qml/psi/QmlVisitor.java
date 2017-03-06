@@ -7,11 +7,11 @@ import com.intellij.psi.PsiElement;
 
 public class QmlVisitor extends PsiElementVisitor {
 
-  public void visitBody(@NotNull QmlBody o) {
+  public void visitBlockComment(@NotNull QmlBlockComment o) {
     visitPsiElement(o);
   }
 
-  public void visitComment(@NotNull QmlComment o) {
+  public void visitBody(@NotNull QmlBody o) {
     visitPsiElement(o);
   }
 
@@ -20,6 +20,10 @@ public class QmlVisitor extends PsiElementVisitor {
   }
 
   public void visitImports(@NotNull QmlImports o) {
+    visitPsiElement(o);
+  }
+
+  public void visitLineComment(@NotNull QmlLineComment o) {
     visitPsiElement(o);
   }
 

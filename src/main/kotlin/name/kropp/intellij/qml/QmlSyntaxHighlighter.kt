@@ -33,7 +33,7 @@ class QmlSyntaxHighlighter : SyntaxHighlighterBase() {
   }
 
   override fun getTokenHighlights(tokenType: IElementType) = when(tokenType) {
-    QmlTypes.COMMENT -> COMMENT_KEYS
+    QmlTypes.LINE_COMMENT, QmlTypes.BLOCK_COMMENT -> COMMENT_KEYS
     QmlTypes.KEYWORD_IMPORT -> KEYWORD_KEYS
     QmlTypes.STRING -> STRING_KEYS
     QmlTypes.NUMBER -> NUMBER_KEYS
