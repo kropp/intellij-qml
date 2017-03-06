@@ -5,15 +5,6 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface QmlImport extends PsiElement {
-
-  @NotNull
-  QmlModule getModule();
-
-  @Nullable
-  QmlQualifier getQualifier();
-
-  @Nullable
-  QmlVersion getVersion();
+public interface QmlQualifier extends PsiElement {
 
 }

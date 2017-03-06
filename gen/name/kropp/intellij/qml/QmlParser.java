@@ -38,6 +38,9 @@ public class QmlParser implements PsiParser, LightPsiParser {
     else if (t == LINE_COMMENT) {
       r = line_comment(b, 0);
     }
+    else if (t == MODULE) {
+      r = module(b, 0);
+    }
     else if (t == OBJECT) {
       r = object(b, 0);
     }
@@ -50,8 +53,14 @@ public class QmlParser implements PsiParser, LightPsiParser {
     else if (t == PROPERTY_NAME) {
       r = propertyName(b, 0);
     }
+    else if (t == QUALIFIER) {
+      r = qualifier(b, 0);
+    }
     else if (t == TYPE_NAME) {
       r = typeName(b, 0);
+    }
+    else if (t == VERSION) {
+      r = version(b, 0);
     }
     else {
       r = parse_root_(t, b, 0);
@@ -98,14 +107,42 @@ public class QmlParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // 'import' module
+  // 'import' module version? ('as' qualifier)?
   public static boolean import_$(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "import_$")) return false;
     if (!nextTokenIs(b, KEYWORD_IMPORT)) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = consumeTokens(b, 0, KEYWORD_IMPORT, MODULE);
+    r = consumeToken(b, KEYWORD_IMPORT);
+    r = r && module(b, l + 1);
+    r = r && import_2(b, l + 1);
+    r = r && import_3(b, l + 1);
     exit_section_(b, m, IMPORT, r);
+    return r;
+  }
+
+  // version?
+  private static boolean import_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "import_2")) return false;
+    version(b, l + 1);
+    return true;
+  }
+
+  // ('as' qualifier)?
+  private static boolean import_3(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "import_3")) return false;
+    import_3_0(b, l + 1);
+    return true;
+  }
+
+  // 'as' qualifier
+  private static boolean import_3_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "import_3_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, KEYWORD_AS);
+    r = r && qualifier(b, l + 1);
+    exit_section_(b, m, null, r);
     return r;
   }
 
@@ -132,6 +169,31 @@ public class QmlParser implements PsiParser, LightPsiParser {
     Marker m = enter_section_(b);
     exit_section_(b, m, LINE_COMMENT, true);
     return true;
+  }
+
+  /* ********************************************************** */
+  // identifier
+  public static boolean module(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "module")) return false;
+    if (!nextTokenIs(b, IDENTIFIER)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, IDENTIFIER);
+    exit_section_(b, m, MODULE, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // integer|float
+  static boolean number(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "number")) return false;
+    if (!nextTokenIs(b, "", FLOAT, INTEGER)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, INTEGER);
+    if (!r) r = consumeToken(b, FLOAT);
+    exit_section_(b, m, null, r);
+    return r;
   }
 
   /* ********************************************************** */
@@ -200,7 +262,7 @@ public class QmlParser implements PsiParser, LightPsiParser {
     r = object(b, l + 1);
     if (!r) r = consumeToken(b, STRING);
     if (!r) r = boolean_$(b, l + 1);
-    if (!r) r = consumeToken(b, NUMBER);
+    if (!r) r = number(b, l + 1);
     if (!r) r = consumeToken(b, IDENTIFIER);
     if (!r) r = consumeToken(b, VALUE);
     exit_section_(b, m, null, r);
@@ -241,6 +303,18 @@ public class QmlParser implements PsiParser, LightPsiParser {
 
   /* ********************************************************** */
   // identifier
+  public static boolean qualifier(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "qualifier")) return false;
+    if (!nextTokenIs(b, IDENTIFIER)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, IDENTIFIER);
+    exit_section_(b, m, QUALIFIER, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // identifier
   public static boolean typeName(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "typeName")) return false;
     if (!nextTokenIs(b, IDENTIFIER)) return false;
@@ -248,6 +322,18 @@ public class QmlParser implements PsiParser, LightPsiParser {
     Marker m = enter_section_(b);
     r = consumeToken(b, IDENTIFIER);
     exit_section_(b, m, TYPE_NAME, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // float
+  public static boolean version(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "version")) return false;
+    if (!nextTokenIs(b, FLOAT)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, FLOAT);
+    exit_section_(b, m, VERSION, r);
     return r;
   }
 

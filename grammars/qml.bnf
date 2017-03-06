@@ -13,6 +13,7 @@
 
   tokens = [
     KEYWORD_IMPORT = 'import'
+    KEYWORD_AS = 'as'
     LBRACE = '{'
     RBRACE = '}'
     COLON = ':'
@@ -26,7 +27,10 @@
 qml ::= imports? object
 
 imports ::= import+
-import ::= 'import' module
+import ::= 'import' module version? ('as' qualifier)?
+version ::= float // version_major '.' version_minor actually
+module ::= identifier
+qualifier ::= identifier
 
 line_comment ::=
 block_comment ::=
@@ -36,5 +40,6 @@ body ::= '{' properties '}'
 typeName ::= identifier
 properties ::= property*
 property ::= (propertyName ':')? (object|string|boolean|number|identifier|value)
+private number ::= integer|float
 propertyName ::= identifier
 private boolean ::= 'true'|'false'

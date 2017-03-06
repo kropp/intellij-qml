@@ -13,20 +13,24 @@ public interface QmlTypes {
   IElementType IMPORT = new QmlElementType("IMPORT");
   IElementType IMPORTS = new QmlElementType("IMPORTS");
   IElementType LINE_COMMENT = new QmlElementType("LINE_COMMENT");
+  IElementType MODULE = new QmlElementType("MODULE");
   IElementType OBJECT = new QmlElementType("OBJECT");
   IElementType PROPERTIES = new QmlElementType("PROPERTIES");
   IElementType PROPERTY = new QmlElementType("PROPERTY");
   IElementType PROPERTY_NAME = new QmlElementType("PROPERTY_NAME");
+  IElementType QUALIFIER = new QmlElementType("QUALIFIER");
   IElementType TYPE_NAME = new QmlElementType("TYPE_NAME");
+  IElementType VERSION = new QmlElementType("VERSION");
 
   IElementType COLON = new QmlTokenType(":");
   IElementType FALSE = new QmlTokenType("false");
+  IElementType FLOAT = new QmlTokenType("float");
   IElementType IDENTIFIER = new QmlTokenType("identifier");
   IElementType IMPORT_$ = new QmlTokenType("import_$");
+  IElementType INTEGER = new QmlTokenType("integer");
+  IElementType KEYWORD_AS = new QmlTokenType("as");
   IElementType KEYWORD_IMPORT = new QmlTokenType("import");
   IElementType LBRACE = new QmlTokenType("{");
-  IElementType MODULE = new QmlTokenType("module");
-  IElementType NUMBER = new QmlTokenType("number");
   IElementType RBRACE = new QmlTokenType("}");
   IElementType STRING = new QmlTokenType("string");
   IElementType TRUE = new QmlTokenType("true");
@@ -50,6 +54,9 @@ public interface QmlTypes {
       else if (type == LINE_COMMENT) {
         return new QmlLineCommentImpl(node);
       }
+      else if (type == MODULE) {
+        return new QmlModuleImpl(node);
+      }
       else if (type == OBJECT) {
         return new QmlObjectImpl(node);
       }
@@ -62,8 +69,14 @@ public interface QmlTypes {
       else if (type == PROPERTY_NAME) {
         return new QmlPropertyNameImpl(node);
       }
+      else if (type == QUALIFIER) {
+        return new QmlQualifierImpl(node);
+      }
       else if (type == TYPE_NAME) {
         return new QmlTypeNameImpl(node);
+      }
+      else if (type == VERSION) {
+        return new QmlVersionImpl(node);
       }
       throw new AssertionError("Unknown element type: " + type);
     }

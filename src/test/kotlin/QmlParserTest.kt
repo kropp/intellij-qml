@@ -4,6 +4,7 @@ import name.kropp.intellij.qml.QmlParserDefinition
 class QmlParserTest : ParsingTestCase("parser", "qml", QmlParserDefinition()) {
   fun testExample() = doTest(true)
   fun testComments() = doTest(true)
+  fun testImports() = doTest(true)
 
   override fun getTestDataPath() = "testData"
 }

@@ -35,18 +35,18 @@ STRING="\""[^\"]*"\""
 {END_OF_LINE_COMMENT}  { return LINE_COMMENT; }
 {BLOCK_COMMENT}        { return BLOCK_COMMENT; }
 {WHITESPACE}           { return WHITE_SPACE; }
-"import"               { yybegin(IMPORT); return KEYWORD_IMPORT; }
+"import"               { return KEYWORD_IMPORT; }
+"as"                   { return KEYWORD_AS; }
 "true"                 { return TRUE; }
 "false"                { return FALSE; }
 "\{"                   { return LBRACE; }
 "\}"                   { return RBRACE; }
 ":"                    { return COLON; }
-[0-9\.]+               { return NUMBER; }
+[0-9]+"."[0-9]+        { return FLOAT; }
+[0-9]+                 { return INTEGER; }
 [a-zA-Z0-9\.]+         { return IDENTIFIER; }
 {STRING}               { return STRING; }
 [a-zA-Z0-9\.\(\)\;\&]+ { return VALUE; }
-
-<IMPORT> [^\n]+               { yybegin(YYINITIAL); return MODULE; }
 
 
 [^] { return BAD_CHARACTER; }
