@@ -19,6 +19,7 @@ class QmlSyntaxHighlighter : SyntaxHighlighterBase() {
     val STRING = TextAttributesKey.createTextAttributesKey("QML_STRING", DefaultLanguageHighlighterColors.STRING)
     val BOOLEAN = TextAttributesKey.createTextAttributesKey("QML_BOOLEAN", DefaultLanguageHighlighterColors.KEYWORD)
     val NUMBER = TextAttributesKey.createTextAttributesKey("QML_NUMBER", DefaultLanguageHighlighterColors.NUMBER)
+    val ID = TextAttributesKey.createTextAttributesKey("QML_OBJECT_ID", DefaultLanguageHighlighterColors.PREDEFINED_SYMBOL)
     val BAD_CHARACTER = TextAttributesKey.createTextAttributesKey("QML_BAD_CHARACTER", HighlighterColors.BAD_CHARACTER)
 
     private val BAD_CHAR_KEYS = arrayOf(BAD_CHARACTER)
