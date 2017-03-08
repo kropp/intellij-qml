@@ -25,6 +25,8 @@ First preview
         <lang.commenter language="QML" implementationClass="name.kropp.intellij.qml.QmlCommenter"/>
         <lang.braceMatcher language="QML" implementationClass="name.kropp.intellij.qml.QmlPairedBraceMatcher"/>
         <lang.foldingBuilder language="QML" implementationClass="name.kropp.intellij.qml.QmlFoldingBuilder"/>
+
+        <colorSettingsPage id="QML" implementation="name.kropp.intellij.qml.QmlColorSettingsPage"/>
     </extensions>
 
     <actions>
