@@ -14,6 +14,9 @@
   tokens = [
     KEYWORD_IMPORT = 'import'
     KEYWORD_AS = 'as'
+    KEYWORD_DEFAULT = 'default'
+    KEYWORD_PROPERTY = 'property'
+    KEYWORD_VAR = 'var'
     LBRACE = '{'
     RBRACE = '}'
     COLON = ':'
@@ -24,9 +27,9 @@
   //psiImplUtilClass = "name.kropp.intellij.qml.psi.QmlPsiImplUtil"
 }
 
-qml ::= imports? object
+qml ::= imports object
 
-imports ::= import+
+imports ::= import*
 import ::= 'import' module version? ('as' qualifier)?
 version ::= float // version_major '.' version_minor actually
 module ::= identifier
@@ -36,10 +39,14 @@ line_comment ::=
 block_comment ::=
 
 object ::= type body
-body ::= '{' attribute_assignment* '}'
+body ::= '{' (property_definition|attribute_assignment)* '}'
 type ::= identifier
-attribute_assignment ::= (attribute ':')? (object|string|boolean|number|identifier|value)
 
+attribute_assignment ::= (attribute ':')? attribute_value
+private attribute_value ::= object|string|boolean|number|identifier|value
+property_definition ::= 'default'? 'property' (type|'var') property (':' attribute_value)?
+
+property ::= identifier
 attribute ::= identifier
 private number ::= integer|float
 private boolean ::= 'true'|'false'

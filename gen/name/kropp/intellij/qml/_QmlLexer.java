@@ -57,9 +57,10 @@ public class _QmlLexer implements FlexLexer {
 
   /* The ZZ_CMAP_A table has 256 entries */
   static final char ZZ_CMAP_A[] = zzUnpackCMap(
-    "\11\0\1\4\1\2\25\0\1\4\1\0\1\5\3\0\1\30\1\0\2\30\1\3\3\0\1\26\1\1\12\25\1"+
-    "\24\1\30\5\0\32\27\6\0\1\14\3\27\1\17\1\20\2\27\1\6\2\27\1\21\1\7\1\27\1\11"+
-    "\1\10\1\27\1\12\1\15\1\13\1\16\5\27\1\22\1\0\1\23\202\0");
+    "\11\0\1\4\1\2\25\0\1\4\1\0\1\5\3\0\1\33\1\0\2\33\1\3\3\0\1\31\1\1\12\30\1"+
+    "\27\1\33\5\0\32\32\6\0\1\14\2\32\1\22\1\17\1\20\2\32\1\6\2\32\1\21\1\7\1\32"+
+    "\1\11\1\10\1\32\1\12\1\15\1\13\1\16\1\24\2\32\1\23\1\32\1\25\1\0\1\26\202"+
+    "\0");
 
   /** 
    * Translates DFA states to action switch labels.
@@ -67,13 +68,13 @@ public class _QmlLexer implements FlexLexer {
   private static final int [] ZZ_ACTION = zzUnpackAction();
 
   private static final String ZZ_ACTION_PACKED_0 =
-    "\1\0\2\1\1\2\1\1\5\3\1\4\1\5\1\6"+
-    "\1\7\1\10\1\11\1\12\1\0\1\13\2\3\1\14"+
-    "\2\3\1\12\3\3\1\15\1\12\1\0\1\3\1\16"+
-    "\2\3\1\17\1\20";
+    "\1\0\2\1\1\2\1\1\10\3\1\4\1\5\1\6"+
+    "\1\7\1\10\1\11\1\12\1\0\1\13\3\3\1\14"+
+    "\4\3\1\12\5\3\1\15\1\16\1\12\1\0\2\3"+
+    "\1\17\4\3\1\20\1\3\1\21\3\3\1\22\1\23";
 
   private static int [] zzUnpackAction() {
-    int [] result = new int[37];
+    int [] result = new int[55];
     int offset = 0;
     offset = zzUnpackAction(ZZ_ACTION_PACKED_0, offset, result);
     return result;
@@ -98,14 +99,16 @@ public class _QmlLexer implements FlexLexer {
   private static final int [] ZZ_ROWMAP = zzUnpackRowMap();
 
   private static final String ZZ_ROWMAP_PACKED_0 =
-    "\0\0\0\31\0\62\0\113\0\144\0\175\0\226\0\257"+
-    "\0\310\0\341\0\31\0\31\0\31\0\372\0\u0113\0\u012c"+
-    "\0\u0145\0\144\0\31\0\u015e\0\u0177\0\226\0\u0190\0\u01a9"+
-    "\0\u01c2\0\u01db\0\u01f4\0\u020d\0\u01a9\0\31\0\u01c2\0\u0226"+
-    "\0\226\0\u023f\0\u0258\0\226\0\226";
+    "\0\0\0\34\0\70\0\124\0\160\0\214\0\250\0\304"+
+    "\0\340\0\374\0\u0118\0\u0134\0\u0150\0\34\0\34\0\34"+
+    "\0\u016c\0\u0188\0\u01a4\0\u01c0\0\160\0\34\0\u01dc\0\u01f8"+
+    "\0\u0214\0\250\0\u0230\0\u024c\0\u0268\0\u0284\0\u02a0\0\u02bc"+
+    "\0\u02d8\0\u02f4\0\u0310\0\u032c\0\250\0\u0284\0\34\0\u02a0"+
+    "\0\u0348\0\u0364\0\250\0\u0380\0\u039c\0\u03b8\0\u03d4\0\250"+
+    "\0\u03f0\0\250\0\u040c\0\u0428\0\u0444\0\250\0\250";
 
   private static int [] zzUnpackRowMap() {
-    int [] result = new int[37];
+    int [] result = new int[55];
     int offset = 0;
     offset = zzUnpackRowMap(ZZ_ROWMAP_PACKED_0, offset, result);
     return result;
@@ -128,29 +131,43 @@ public class _QmlLexer implements FlexLexer {
   private static final int [] ZZ_TRANS = zzUnpackTrans();
 
   private static final String ZZ_TRANS_PACKED_0 =
-    "\1\2\1\3\1\4\1\2\1\4\1\5\1\6\4\7"+
-    "\1\10\1\11\3\7\1\12\1\7\1\13\1\14\1\15"+
-    "\1\16\2\7\1\17\32\0\1\20\1\0\1\21\27\0"+
-    "\1\4\1\0\1\4\24\0\5\22\1\23\23\22\6\0"+
-    "\1\7\1\24\12\7\3\0\3\7\1\17\6\0\14\7"+
-    "\3\0\3\7\1\17\6\0\4\7\1\25\7\7\3\0"+
-    "\3\7\1\17\6\0\7\7\1\26\4\7\3\0\3\7"+
-    "\1\17\6\0\6\7\1\27\5\7\3\0\3\7\1\17"+
-    "\6\0\14\7\3\0\1\16\1\30\1\7\1\17\6\0"+
-    "\14\17\3\0\4\17\2\20\1\0\26\20\3\21\1\31"+
-    "\25\21\6\0\2\7\1\32\11\7\3\0\3\7\1\17"+
-    "\6\0\10\7\1\33\3\7\3\0\3\7\1\17\6\0"+
-    "\13\7\1\34\3\0\3\7\1\17\6\0\14\7\3\0"+
-    "\1\35\2\7\1\17\1\21\1\36\1\21\1\37\25\21"+
-    "\6\0\3\7\1\40\10\7\3\0\3\7\1\17\6\0"+
-    "\11\7\1\41\2\7\3\0\3\7\1\17\6\0\7\7"+
-    "\1\42\4\7\3\0\3\7\1\17\6\0\4\7\1\43"+
-    "\7\7\3\0\3\7\1\17\6\0\11\7\1\44\2\7"+
-    "\3\0\3\7\1\17\6\0\5\7\1\45\6\7\3\0"+
-    "\3\7\1\17";
+    "\1\2\1\3\1\4\1\2\1\4\1\5\1\6\1\7"+
+    "\1\10\2\7\1\11\1\12\3\7\1\13\1\7\1\14"+
+    "\1\7\1\15\1\16\1\17\1\20\1\21\2\7\1\22"+
+    "\35\0\1\23\1\0\1\24\32\0\1\4\1\0\1\4"+
+    "\27\0\5\25\1\26\26\25\6\0\1\7\1\27\15\7"+
+    "\3\0\3\7\1\22\6\0\17\7\3\0\3\7\1\22"+
+    "\6\0\4\7\1\30\12\7\3\0\3\7\1\22\6\0"+
+    "\4\7\1\31\12\7\3\0\3\7\1\22\6\0\7\7"+
+    "\1\32\7\7\3\0\3\7\1\22\6\0\6\7\1\33"+
+    "\10\7\3\0\3\7\1\22\6\0\11\7\1\34\5\7"+
+    "\3\0\3\7\1\22\6\0\6\7\1\35\10\7\3\0"+
+    "\3\7\1\22\6\0\17\7\3\0\1\21\1\36\1\7"+
+    "\1\22\6\0\17\22\3\0\4\22\2\23\1\0\31\23"+
+    "\3\24\1\37\30\24\6\0\2\7\1\40\14\7\3\0"+
+    "\3\7\1\22\6\0\3\7\1\41\13\7\3\0\3\7"+
+    "\1\22\6\0\10\7\1\42\6\7\3\0\3\7\1\22"+
+    "\6\0\13\7\1\43\3\7\3\0\3\7\1\22\6\0"+
+    "\12\7\1\44\4\7\3\0\3\7\1\22\6\0\4\7"+
+    "\1\45\12\7\3\0\3\7\1\22\6\0\17\7\3\0"+
+    "\1\46\2\7\1\22\1\24\1\47\1\24\1\50\30\24"+
+    "\6\0\3\7\1\51\13\7\3\0\3\7\1\22\6\0"+
+    "\2\7\1\52\14\7\3\0\3\7\1\22\6\0\11\7"+
+    "\1\53\5\7\3\0\3\7\1\22\6\0\7\7\1\54"+
+    "\7\7\3\0\3\7\1\22\6\0\6\7\1\55\10\7"+
+    "\3\0\3\7\1\22\6\0\4\7\1\56\12\7\3\0"+
+    "\3\7\1\22\6\0\11\7\1\57\5\7\3\0\3\7"+
+    "\1\22\6\0\11\7\1\60\5\7\3\0\3\7\1\22"+
+    "\6\0\10\7\1\61\6\7\3\0\3\7\1\22\6\0"+
+    "\5\7\1\62\11\7\3\0\3\7\1\22\6\0\4\7"+
+    "\1\63\12\7\3\0\3\7\1\22\6\0\13\7\1\64"+
+    "\3\7\3\0\3\7\1\22\6\0\5\7\1\65\11\7"+
+    "\3\0\3\7\1\22\6\0\5\7\1\66\11\7\3\0"+
+    "\3\7\1\22\6\0\15\7\1\67\1\7\3\0\3\7"+
+    "\1\22";
 
   private static int [] zzUnpackTrans() {
-    int [] result = new int[625];
+    int [] result = new int[1120];
     int offset = 0;
     offset = zzUnpackTrans(ZZ_TRANS_PACKED_0, offset, result);
     return result;
@@ -188,11 +205,11 @@ public class _QmlLexer implements FlexLexer {
   private static final int [] ZZ_ATTRIBUTE = zzUnpackAttribute();
 
   private static final String ZZ_ATTRIBUTE_PACKED_0 =
-    "\1\0\1\11\10\1\3\11\4\1\1\0\1\11\12\1"+
-    "\1\11\1\0\6\1";
+    "\1\0\1\11\13\1\3\11\4\1\1\0\1\11\20\1"+
+    "\1\11\1\0\17\1";
 
   private static int [] zzUnpackAttribute() {
-    int [] result = new int[37];
+    int [] result = new int[55];
     int offset = 0;
     offset = zzUnpackAttribute(ZZ_ATTRIBUTE_PACKED_0, offset, result);
     return result;
@@ -500,67 +517,79 @@ public class _QmlLexer implements FlexLexer {
           case 1: 
             { return BAD_CHARACTER;
             }
-          case 17: break;
+          case 20: break;
           case 2: 
             { return WHITE_SPACE;
             }
-          case 18: break;
+          case 21: break;
           case 3: 
             { return IDENTIFIER;
             }
-          case 19: break;
+          case 22: break;
           case 4: 
             { return LBRACE;
             }
-          case 20: break;
+          case 23: break;
           case 5: 
             { return RBRACE;
             }
-          case 21: break;
+          case 24: break;
           case 6: 
             { return COLON;
             }
-          case 22: break;
+          case 25: break;
           case 7: 
             { return INTEGER;
             }
-          case 23: break;
+          case 26: break;
           case 8: 
             { return VALUE;
             }
-          case 24: break;
+          case 27: break;
           case 9: 
             { return LINE_COMMENT;
             }
-          case 25: break;
+          case 28: break;
           case 10: 
             { return BLOCK_COMMENT;
             }
-          case 26: break;
+          case 29: break;
           case 11: 
             { return STRING;
             }
-          case 27: break;
+          case 30: break;
           case 12: 
             { return KEYWORD_AS;
             }
-          case 28: break;
-          case 13: 
-            { return FLOAT;
-            }
-          case 29: break;
-          case 14: 
-            { return TRUE;
-            }
-          case 30: break;
-          case 15: 
-            { return FALSE;
-            }
           case 31: break;
-          case 16: 
-            { return KEYWORD_IMPORT;
+          case 13: 
+            { return KEYWORD_VAR;
             }
           case 32: break;
+          case 14: 
+            { return FLOAT;
+            }
+          case 33: break;
+          case 15: 
+            { return TRUE;
+            }
+          case 34: break;
+          case 16: 
+            { return FALSE;
+            }
+          case 35: break;
+          case 17: 
+            { return KEYWORD_IMPORT;
+            }
+          case 36: break;
+          case 18: 
+            { return KEYWORD_DEFAULT;
+            }
+          case 37: break;
+          case 19: 
+            { return KEYWORD_PROPERTY;
+            }
+          case 38: break;
           default:
             zzScanError(ZZ_NO_MATCH);
           }

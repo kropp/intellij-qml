@@ -1,4 +1,6 @@
 FILE
+  QmlImportsImpl(IMPORTS)
+    <empty list>
   QmlObjectImpl(OBJECT)
     QmlTypeImpl(TYPE)
       PsiElement(identifier)('ApplicationWindow')

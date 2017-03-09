@@ -14,6 +14,7 @@ import name.kropp.intellij.qml.psi.QmlImports
 class QmlFoldingBuilder : FoldingBuilderEx() {
   override fun buildFoldRegions(root: PsiElement, document: Document, quick: Boolean): Array<FoldingDescriptor>
       = PsiTreeUtil.findChildrenOfAnyType(root, QmlImports::class.java, QmlBody::class.java, PsiComment::class.java)
+      .filterNot { it.textRange.isEmpty }
       .mapNotNull {
         when (it) {
           is QmlImports -> QmlImportsFoldingDescriptor(it)

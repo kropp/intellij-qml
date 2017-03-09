@@ -17,6 +17,8 @@ public interface QmlTypes {
   IElementType LINE_COMMENT = new QmlElementType("LINE_COMMENT");
   IElementType MODULE = new QmlElementType("MODULE");
   IElementType OBJECT = new QmlElementType("OBJECT");
+  IElementType PROPERTY = new QmlElementType("PROPERTY");
+  IElementType PROPERTY_DEFINITION = new QmlElementType("PROPERTY_DEFINITION");
   IElementType QUALIFIER = new QmlElementType("QUALIFIER");
   IElementType TYPE = new QmlElementType("TYPE");
   IElementType VERSION = new QmlElementType("VERSION");
@@ -28,7 +30,10 @@ public interface QmlTypes {
   IElementType IMPORT_$ = new QmlTokenType("import_$");
   IElementType INTEGER = new QmlTokenType("integer");
   IElementType KEYWORD_AS = new QmlTokenType("as");
+  IElementType KEYWORD_DEFAULT = new QmlTokenType("default");
   IElementType KEYWORD_IMPORT = new QmlTokenType("import");
+  IElementType KEYWORD_PROPERTY = new QmlTokenType("property");
+  IElementType KEYWORD_VAR = new QmlTokenType("var");
   IElementType LBRACE = new QmlTokenType("{");
   IElementType RBRACE = new QmlTokenType("}");
   IElementType STRING = new QmlTokenType("string");
@@ -64,6 +69,12 @@ public interface QmlTypes {
       }
       else if (type == OBJECT) {
         return new QmlObjectImpl(node);
+      }
+      else if (type == PROPERTY) {
+        return new QmlPropertyImpl(node);
+      }
+      else if (type == PROPERTY_DEFINITION) {
+        return new QmlPropertyDefinitionImpl(node);
       }
       else if (type == QUALIFIER) {
         return new QmlQualifierImpl(node);
