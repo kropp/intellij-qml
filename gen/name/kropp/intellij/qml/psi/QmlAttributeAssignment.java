@@ -5,12 +5,12 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface QmlProperty extends PsiElement {
+public interface QmlAttributeAssignment extends PsiElement {
+
+  @Nullable
+  QmlAttribute getAttribute();
 
   @Nullable
   QmlObject getObject();
-
-  @Nullable
-  QmlPropertyName getPropertyName();
 
 }

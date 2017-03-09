@@ -23,7 +23,13 @@ public class QmlParser implements PsiParser, LightPsiParser {
     boolean r;
     b = adapt_builder_(t, b, this, null);
     Marker m = enter_section_(b, 0, _COLLAPSE_, null);
-    if (t == BLOCK_COMMENT) {
+    if (t == ATTRIBUTE) {
+      r = attribute(b, 0);
+    }
+    else if (t == ATTRIBUTE_ASSIGNMENT) {
+      r = attribute_assignment(b, 0);
+    }
+    else if (t == BLOCK_COMMENT) {
       r = block_comment(b, 0);
     }
     else if (t == BODY) {
@@ -44,20 +50,11 @@ public class QmlParser implements PsiParser, LightPsiParser {
     else if (t == OBJECT) {
       r = object(b, 0);
     }
-    else if (t == PROPERTIES) {
-      r = properties(b, 0);
-    }
-    else if (t == PROPERTY) {
-      r = property(b, 0);
-    }
-    else if (t == PROPERTY_NAME) {
-      r = propertyName(b, 0);
-    }
     else if (t == QUALIFIER) {
       r = qualifier(b, 0);
     }
-    else if (t == TYPE_NAME) {
-      r = typeName(b, 0);
+    else if (t == TYPE) {
+      r = type(b, 0);
     }
     else if (t == VERSION) {
       r = version(b, 0);
@@ -73,6 +70,63 @@ public class QmlParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
+  // identifier
+  public static boolean attribute(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "attribute")) return false;
+    if (!nextTokenIs(b, IDENTIFIER)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, IDENTIFIER);
+    exit_section_(b, m, ATTRIBUTE, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // (attribute ':')? (object|string|boolean|number|identifier|value)
+  public static boolean attribute_assignment(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "attribute_assignment")) return false;
+    boolean r;
+    Marker m = enter_section_(b, l, _NONE_, ATTRIBUTE_ASSIGNMENT, "<attribute assignment>");
+    r = attribute_assignment_0(b, l + 1);
+    r = r && attribute_assignment_1(b, l + 1);
+    exit_section_(b, l, m, r, false, null);
+    return r;
+  }
+
+  // (attribute ':')?
+  private static boolean attribute_assignment_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "attribute_assignment_0")) return false;
+    attribute_assignment_0_0(b, l + 1);
+    return true;
+  }
+
+  // attribute ':'
+  private static boolean attribute_assignment_0_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "attribute_assignment_0_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = attribute(b, l + 1);
+    r = r && consumeToken(b, COLON);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // object|string|boolean|number|identifier|value
+  private static boolean attribute_assignment_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "attribute_assignment_1")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = object(b, l + 1);
+    if (!r) r = consumeToken(b, STRING);
+    if (!r) r = boolean_$(b, l + 1);
+    if (!r) r = number(b, l + 1);
+    if (!r) r = consumeToken(b, IDENTIFIER);
+    if (!r) r = consumeToken(b, VALUE);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  /* ********************************************************** */
   public static boolean block_comment(PsiBuilder b, int l) {
     Marker m = enter_section_(b);
     exit_section_(b, m, BLOCK_COMMENT, true);
@@ -80,17 +134,29 @@ public class QmlParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // '{' properties '}'
+  // '{' attribute_assignment* '}'
   public static boolean body(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "body")) return false;
     if (!nextTokenIs(b, LBRACE)) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = consumeToken(b, LBRACE);
-    r = r && properties(b, l + 1);
+    r = r && body_1(b, l + 1);
     r = r && consumeToken(b, RBRACE);
     exit_section_(b, m, BODY, r);
     return r;
+  }
+
+  // attribute_assignment*
+  private static boolean body_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "body_1")) return false;
+    int c = current_position_(b);
+    while (true) {
+      if (!attribute_assignment(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "body_1", c)) break;
+      c = current_position_(b);
+    }
+    return true;
   }
 
   /* ********************************************************** */
@@ -197,87 +263,15 @@ public class QmlParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // typeName body
+  // type body
   public static boolean object(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "object")) return false;
     if (!nextTokenIs(b, IDENTIFIER)) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = typeName(b, l + 1);
+    r = type(b, l + 1);
     r = r && body(b, l + 1);
     exit_section_(b, m, OBJECT, r);
-    return r;
-  }
-
-  /* ********************************************************** */
-  // property*
-  public static boolean properties(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "properties")) return false;
-    Marker m = enter_section_(b, l, _NONE_, PROPERTIES, "<properties>");
-    int c = current_position_(b);
-    while (true) {
-      if (!property(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "properties", c)) break;
-      c = current_position_(b);
-    }
-    exit_section_(b, l, m, true, false, null);
-    return true;
-  }
-
-  /* ********************************************************** */
-  // (propertyName ':')? (object|string|boolean|number|identifier|value)
-  public static boolean property(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "property")) return false;
-    boolean r;
-    Marker m = enter_section_(b, l, _NONE_, PROPERTY, "<property>");
-    r = property_0(b, l + 1);
-    r = r && property_1(b, l + 1);
-    exit_section_(b, l, m, r, false, null);
-    return r;
-  }
-
-  // (propertyName ':')?
-  private static boolean property_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "property_0")) return false;
-    property_0_0(b, l + 1);
-    return true;
-  }
-
-  // propertyName ':'
-  private static boolean property_0_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "property_0_0")) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = propertyName(b, l + 1);
-    r = r && consumeToken(b, COLON);
-    exit_section_(b, m, null, r);
-    return r;
-  }
-
-  // object|string|boolean|number|identifier|value
-  private static boolean property_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "property_1")) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = object(b, l + 1);
-    if (!r) r = consumeToken(b, STRING);
-    if (!r) r = boolean_$(b, l + 1);
-    if (!r) r = number(b, l + 1);
-    if (!r) r = consumeToken(b, IDENTIFIER);
-    if (!r) r = consumeToken(b, VALUE);
-    exit_section_(b, m, null, r);
-    return r;
-  }
-
-  /* ********************************************************** */
-  // identifier
-  public static boolean propertyName(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "propertyName")) return false;
-    if (!nextTokenIs(b, IDENTIFIER)) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = consumeToken(b, IDENTIFIER);
-    exit_section_(b, m, PROPERTY_NAME, r);
     return r;
   }
 
@@ -315,13 +309,13 @@ public class QmlParser implements PsiParser, LightPsiParser {
 
   /* ********************************************************** */
   // identifier
-  public static boolean typeName(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "typeName")) return false;
+  public static boolean type(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "type")) return false;
     if (!nextTokenIs(b, IDENTIFIER)) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = consumeToken(b, IDENTIFIER);
-    exit_section_(b, m, TYPE_NAME, r);
+    exit_section_(b, m, TYPE, r);
     return r;
   }
 

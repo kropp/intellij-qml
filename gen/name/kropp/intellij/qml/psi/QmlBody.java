@@ -8,6 +8,6 @@ import com.intellij.psi.PsiElement;
 public interface QmlBody extends PsiElement {
 
   @NotNull
-  QmlProperties getProperties();
+  List<QmlAttributeAssignment> getAttributeAssignmentList();
 
 }

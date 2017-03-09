@@ -34,8 +34,8 @@ public class QmlObjectImpl extends ASTWrapperPsiElement implements QmlObject {
 
   @Override
   @NotNull
-  public QmlTypeName getTypeName() {
-    return findNotNullChildByClass(QmlTypeName.class);
+  public QmlType getType() {
+    return findNotNullChildByClass(QmlType.class);
   }
 
 }

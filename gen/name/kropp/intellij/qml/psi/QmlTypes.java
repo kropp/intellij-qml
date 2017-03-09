@@ -8,6 +8,8 @@ import name.kropp.intellij.qml.psi.impl.*;
 
 public interface QmlTypes {
 
+  IElementType ATTRIBUTE = new QmlElementType("ATTRIBUTE");
+  IElementType ATTRIBUTE_ASSIGNMENT = new QmlElementType("ATTRIBUTE_ASSIGNMENT");
   IElementType BLOCK_COMMENT = new QmlElementType("BLOCK_COMMENT");
   IElementType BODY = new QmlElementType("BODY");
   IElementType IMPORT = new QmlElementType("IMPORT");
@@ -15,11 +17,8 @@ public interface QmlTypes {
   IElementType LINE_COMMENT = new QmlElementType("LINE_COMMENT");
   IElementType MODULE = new QmlElementType("MODULE");
   IElementType OBJECT = new QmlElementType("OBJECT");
-  IElementType PROPERTIES = new QmlElementType("PROPERTIES");
-  IElementType PROPERTY = new QmlElementType("PROPERTY");
-  IElementType PROPERTY_NAME = new QmlElementType("PROPERTY_NAME");
   IElementType QUALIFIER = new QmlElementType("QUALIFIER");
-  IElementType TYPE_NAME = new QmlElementType("TYPE_NAME");
+  IElementType TYPE = new QmlElementType("TYPE");
   IElementType VERSION = new QmlElementType("VERSION");
 
   IElementType COLON = new QmlTokenType(":");
@@ -39,7 +38,13 @@ public interface QmlTypes {
   class Factory {
     public static PsiElement createElement(ASTNode node) {
       IElementType type = node.getElementType();
-       if (type == BLOCK_COMMENT) {
+       if (type == ATTRIBUTE) {
+        return new QmlAttributeImpl(node);
+      }
+      else if (type == ATTRIBUTE_ASSIGNMENT) {
+        return new QmlAttributeAssignmentImpl(node);
+      }
+      else if (type == BLOCK_COMMENT) {
         return new QmlBlockCommentImpl(node);
       }
       else if (type == BODY) {
@@ -60,20 +65,11 @@ public interface QmlTypes {
       else if (type == OBJECT) {
         return new QmlObjectImpl(node);
       }
-      else if (type == PROPERTIES) {
-        return new QmlPropertiesImpl(node);
-      }
-      else if (type == PROPERTY) {
-        return new QmlPropertyImpl(node);
-      }
-      else if (type == PROPERTY_NAME) {
-        return new QmlPropertyNameImpl(node);
-      }
       else if (type == QUALIFIER) {
         return new QmlQualifierImpl(node);
       }
-      else if (type == TYPE_NAME) {
-        return new QmlTypeNameImpl(node);
+      else if (type == TYPE) {
+        return new QmlTypeImpl(node);
       }
       else if (type == VERSION) {
         return new QmlVersionImpl(node);

@@ -7,6 +7,14 @@ import com.intellij.psi.PsiElement;
 
 public class QmlVisitor extends PsiElementVisitor {
 
+  public void visitAttribute(@NotNull QmlAttribute o) {
+    visitPsiElement(o);
+  }
+
+  public void visitAttributeAssignment(@NotNull QmlAttributeAssignment o) {
+    visitPsiElement(o);
+  }
+
   public void visitBlockComment(@NotNull QmlBlockComment o) {
     visitPsiElement(o);
   }
@@ -35,23 +43,11 @@ public class QmlVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-  public void visitProperties(@NotNull QmlProperties o) {
-    visitPsiElement(o);
-  }
-
-  public void visitProperty(@NotNull QmlProperty o) {
-    visitPsiElement(o);
-  }
-
-  public void visitPropertyName(@NotNull QmlPropertyName o) {
-    visitPsiElement(o);
-  }
-
   public void visitQualifier(@NotNull QmlQualifier o) {
     visitPsiElement(o);
   }
 
-  public void visitTypeName(@NotNull QmlTypeName o) {
+  public void visitType(@NotNull QmlType o) {
     visitPsiElement(o);
   }
 

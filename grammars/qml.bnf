@@ -35,11 +35,11 @@ qualifier ::= identifier
 line_comment ::=
 block_comment ::=
 
-object ::= typeName body
-body ::= '{' properties '}'
-typeName ::= identifier
-properties ::= property*
-property ::= (propertyName ':')? (object|string|boolean|number|identifier|value)
+object ::= type body
+body ::= '{' attribute_assignment* '}'
+type ::= identifier
+attribute_assignment ::= (attribute ':')? (object|string|boolean|number|identifier|value)
+
+attribute ::= identifier
 private number ::= integer|float
-propertyName ::= identifier
 private boolean ::= 'true'|'false'

@@ -11,6 +11,6 @@ public interface QmlObject extends PsiElement {
   QmlBody getBody();
 
   @NotNull
-  QmlTypeName getTypeName();
+  QmlType getType();
 
 }

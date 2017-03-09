@@ -12,8 +12,8 @@ class QmlSyntaxHighlighter : SyntaxHighlighterBase() {
   companion object {
     val COMMENT = TextAttributesKey.createTextAttributesKey("QML_COMMENT", DefaultLanguageHighlighterColors.LINE_COMMENT)
     val KEYWORD = TextAttributesKey.createTextAttributesKey("QML_KEYWORD", DefaultLanguageHighlighterColors.KEYWORD)
-    val TYPE_NAME = TextAttributesKey.createTextAttributesKey("QML_TYPE_NAME", DefaultLanguageHighlighterColors.CLASS_NAME)
-    val PROPERTY = TextAttributesKey.createTextAttributesKey("QML_PROPERTY", DefaultLanguageHighlighterColors.INSTANCE_FIELD)
+    val TYPE = TextAttributesKey.createTextAttributesKey("QML_TYPE", DefaultLanguageHighlighterColors.CLASS_NAME)
+    val ATTRIBUTE = TextAttributesKey.createTextAttributesKey("QML_ATTRIBUTE", DefaultLanguageHighlighterColors.INSTANCE_FIELD)
     val PARENTHESES = TextAttributesKey.createTextAttributesKey("QML_PARENTHESES", DefaultLanguageHighlighterColors.PARENTHESES)
     val COLON = TextAttributesKey.createTextAttributesKey("QML_COLON", DefaultLanguageHighlighterColors.SEMICOLON)
     val STRING = TextAttributesKey.createTextAttributesKey("QML_STRING", DefaultLanguageHighlighterColors.STRING)

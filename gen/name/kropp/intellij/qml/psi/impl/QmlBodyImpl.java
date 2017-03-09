@@ -28,8 +28,8 @@ public class QmlBodyImpl extends ASTWrapperPsiElement implements QmlBody {
 
   @Override
   @NotNull
-  public QmlProperties getProperties() {
-    return findNotNullChildByClass(QmlProperties.class);
+  public List<QmlAttributeAssignment> getAttributeAssignmentList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, QmlAttributeAssignment.class);
   }
 
 }

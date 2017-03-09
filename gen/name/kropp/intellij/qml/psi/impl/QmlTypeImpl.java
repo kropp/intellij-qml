@@ -11,31 +11,19 @@ import static name.kropp.intellij.qml.psi.QmlTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import name.kropp.intellij.qml.psi.*;
 
-public class QmlPropertyImpl extends ASTWrapperPsiElement implements QmlProperty {
+public class QmlTypeImpl extends ASTWrapperPsiElement implements QmlType {
 
-  public QmlPropertyImpl(ASTNode node) {
+  public QmlTypeImpl(ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull QmlVisitor visitor) {
-    visitor.visitProperty(this);
+    visitor.visitType(this);
   }
 
   public void accept(@NotNull PsiElementVisitor visitor) {
     if (visitor instanceof QmlVisitor) accept((QmlVisitor)visitor);
     else super.accept(visitor);
-  }
-
-  @Override
-  @Nullable
-  public QmlObject getObject() {
-    return findChildByClass(QmlObject.class);
-  }
-
-  @Override
-  @Nullable
-  public QmlPropertyName getPropertyName() {
-    return findChildByClass(QmlPropertyName.class);
   }
 
 }

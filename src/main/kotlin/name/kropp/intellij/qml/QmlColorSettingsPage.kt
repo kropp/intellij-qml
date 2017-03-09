@@ -10,15 +10,15 @@ class QmlColorSettingsPage : ColorSettingsPage {
 
   private val tags = mapOf(
       "id" to QmlSyntaxHighlighter.ID,
-      "property" to QmlSyntaxHighlighter.PROPERTY,
-      "typeName" to QmlSyntaxHighlighter.TYPE_NAME
+      "attribute" to QmlSyntaxHighlighter.ATTRIBUTE,
+      "type" to QmlSyntaxHighlighter.TYPE
   )
 
   private val DESCRIPTORS = arrayOf(
       AttributesDescriptor("Keyword", QmlSyntaxHighlighter.KEYWORD),
-      AttributesDescriptor("Type Name", QmlSyntaxHighlighter.TYPE_NAME),
-      AttributesDescriptor("Property", QmlSyntaxHighlighter.PROPERTY),
-      AttributesDescriptor("Id Property", QmlSyntaxHighlighter.ID),
+      AttributesDescriptor("Type Name", QmlSyntaxHighlighter.TYPE),
+      AttributesDescriptor("Attribute", QmlSyntaxHighlighter.ATTRIBUTE),
+      AttributesDescriptor("Id Attribute", QmlSyntaxHighlighter.ID),
       AttributesDescriptor("String", QmlSyntaxHighlighter.STRING),
       AttributesDescriptor("Number", QmlSyntaxHighlighter.NUMBER),
       AttributesDescriptor("Boolean value", QmlSyntaxHighlighter.BOOLEAN)
@@ -29,32 +29,32 @@ class QmlColorSettingsPage : ColorSettingsPage {
 
   override fun getDemoText() = """import QtQuick 2.7
 
-<typeName>ApplicationWindow</typeName> {
+<type>ApplicationWindow</type> {
     <id>id</id>: mainWindow
-    <property>visible</property>: true
+    <attribute>visible</attribute>: true
 
-    <property>title</property>: "Demo App"
-    <property>width</property>: 440
-    <property>height</property>: 700
+    <attribute>title</attribute>: "Demo App"
+    <attribute>width</attribute>: 440
+    <attribute>height</attribute>: 700
 
-    <property>menuBar: <typeName>MenuBar</typeName> {
+    <attribute>menuBar: <type>MenuBar</type> {
         Menu {
-            <property>title</property>: qsTr("File")
-            <typeName>MenuItem</typeName> {
-                <property>text</property>: qsTr("&Open")
-                <property>onTriggered</property>: console.log("Open action triggered");
+            <attribute>title</attribute>: qsTr("File")
+            <type>MenuItem</type> {
+                <attribute>text</attribute>: qsTr("&Open")
+                <attribute>onTriggered</attribute>: console.log("Open action triggered");
             }
-            <typeName>MenuItem</typeName> {
-                <property>text</property>: qsTr("Exit")
-                <property>onTriggered</property>: Qt.quit();
+            <type>MenuItem</type> {
+                <attribute>text</attribute>: qsTr("Exit")
+                <attribute>onTriggered</attribute>: Qt.quit();
             }
         }
     }
 
-    <typeName>Button</typeName> {
-        <property>text</property>: "Hello World"
-        <property>anchors.horizontalCenter</property>: parent.horizontalCenter
-        <property>anchors.verticalCenter</property>: parent.verticalCenter
+    <type>Button</type> {
+        <attribute>text</attribute>: "Hello World"
+        <attribute>anchors.horizontalCenter</attribute>: parent.horizontalCenter
+        <attribute>anchors.verticalCenter</attribute>: parent.verticalCenter
     }
 }"""
 
