@@ -50,6 +50,9 @@ public class QmlParser implements PsiParser, LightPsiParser {
     else if (t == OBJECT) {
       r = object(b, 0);
     }
+    else if (t == PARAMETER) {
+      r = parameter(b, 0);
+    }
     else if (t == PROPERTY) {
       r = property(b, 0);
     }
@@ -58,6 +61,15 @@ public class QmlParser implements PsiParser, LightPsiParser {
     }
     else if (t == QUALIFIER) {
       r = qualifier(b, 0);
+    }
+    else if (t == SIGNAL) {
+      r = signal(b, 0);
+    }
+    else if (t == SIGNAL_DEFINITION) {
+      r = signal_definition(b, 0);
+    }
+    else if (t == SIGNAL_PARAMETER) {
+      r = signal_parameter(b, 0);
     }
     else if (t == TYPE) {
       r = type(b, 0);
@@ -141,7 +153,7 @@ public class QmlParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // '{' (property_definition|attribute_assignment)* '}'
+  // '{' (property_definition|signal_definition|attribute_assignment)* '}'
   public static boolean body(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "body")) return false;
     if (!nextTokenIs(b, LBRACE)) return false;
@@ -154,7 +166,7 @@ public class QmlParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // (property_definition|attribute_assignment)*
+  // (property_definition|signal_definition|attribute_assignment)*
   private static boolean body_1(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "body_1")) return false;
     int c = current_position_(b);
@@ -166,12 +178,13 @@ public class QmlParser implements PsiParser, LightPsiParser {
     return true;
   }
 
-  // property_definition|attribute_assignment
+  // property_definition|signal_definition|attribute_assignment
   private static boolean body_1_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "body_1_0")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = property_definition(b, l + 1);
+    if (!r) r = signal_definition(b, l + 1);
     if (!r) r = attribute_assignment(b, l + 1);
     exit_section_(b, m, null, r);
     return r;
@@ -292,6 +305,18 @@ public class QmlParser implements PsiParser, LightPsiParser {
 
   /* ********************************************************** */
   // identifier
+  public static boolean parameter(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "parameter")) return false;
+    if (!nextTokenIs(b, IDENTIFIER)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, IDENTIFIER);
+    exit_section_(b, m, PARAMETER, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // identifier
   public static boolean property(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "property")) return false;
     if (!nextTokenIs(b, IDENTIFIER)) return false;
@@ -383,6 +408,106 @@ public class QmlParser implements PsiParser, LightPsiParser {
     Marker m = enter_section_(b);
     r = consumeToken(b, IDENTIFIER);
     exit_section_(b, m, QUALIFIER, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // identifier
+  public static boolean signal(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "signal")) return false;
+    if (!nextTokenIs(b, IDENTIFIER)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, IDENTIFIER);
+    exit_section_(b, m, SIGNAL, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // 'signal' signal ('(' (signal_parameter ',')* signal_parameter? ')')?
+  public static boolean signal_definition(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "signal_definition")) return false;
+    if (!nextTokenIs(b, KEYWORD_SIGNAL)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, KEYWORD_SIGNAL);
+    r = r && signal(b, l + 1);
+    r = r && signal_definition_2(b, l + 1);
+    exit_section_(b, m, SIGNAL_DEFINITION, r);
+    return r;
+  }
+
+  // ('(' (signal_parameter ',')* signal_parameter? ')')?
+  private static boolean signal_definition_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "signal_definition_2")) return false;
+    signal_definition_2_0(b, l + 1);
+    return true;
+  }
+
+  // '(' (signal_parameter ',')* signal_parameter? ')'
+  private static boolean signal_definition_2_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "signal_definition_2_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, LPAREN);
+    r = r && signal_definition_2_0_1(b, l + 1);
+    r = r && signal_definition_2_0_2(b, l + 1);
+    r = r && consumeToken(b, RPAREN);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // (signal_parameter ',')*
+  private static boolean signal_definition_2_0_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "signal_definition_2_0_1")) return false;
+    int c = current_position_(b);
+    while (true) {
+      if (!signal_definition_2_0_1_0(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "signal_definition_2_0_1", c)) break;
+      c = current_position_(b);
+    }
+    return true;
+  }
+
+  // signal_parameter ','
+  private static boolean signal_definition_2_0_1_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "signal_definition_2_0_1_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = signal_parameter(b, l + 1);
+    r = r && consumeToken(b, COMMA);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // signal_parameter?
+  private static boolean signal_definition_2_0_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "signal_definition_2_0_2")) return false;
+    signal_parameter(b, l + 1);
+    return true;
+  }
+
+  /* ********************************************************** */
+  // ('var'|type) parameter
+  public static boolean signal_parameter(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "signal_parameter")) return false;
+    if (!nextTokenIs(b, "<signal parameter>", KEYWORD_VAR, IDENTIFIER)) return false;
+    boolean r;
+    Marker m = enter_section_(b, l, _NONE_, SIGNAL_PARAMETER, "<signal parameter>");
+    r = signal_parameter_0(b, l + 1);
+    r = r && parameter(b, l + 1);
+    exit_section_(b, l, m, r, false, null);
+    return r;
+  }
+
+  // 'var'|type
+  private static boolean signal_parameter_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "signal_parameter_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, KEYWORD_VAR);
+    if (!r) r = type(b, l + 1);
+    exit_section_(b, m, null, r);
     return r;
   }
 

@@ -43,14 +43,18 @@ STRING="\""[^\"]*"\""
 "property"             { return KEYWORD_PROPERTY; }
 "var"                  { return KEYWORD_VAR; }
 "readonly"             { return KEYWORD_READONLY; }
+"signal"               { return KEYWORD_SIGNAL; }
 "\{"                   { return LBRACE; }
 "\}"                   { return RBRACE; }
+"\("                   { return LPAREN; }
+"\)"                   { return RPAREN; }
 ":"                    { return COLON; }
+","                    { return COMMA; }
 [0-9]+"."[0-9]+        { return FLOAT; }
 [0-9]+                 { return INTEGER; }
 [a-zA-Z0-9\.]+         { return IDENTIFIER; }
 {STRING}               { return STRING; }
-[a-zA-Z0-9\.\(\)\;\&]+ { return VALUE; }
+[a-zA-Z0-9\.\;\&]+     { return VALUE; }
 
 
 [^] { return BAD_CHARACTER; }

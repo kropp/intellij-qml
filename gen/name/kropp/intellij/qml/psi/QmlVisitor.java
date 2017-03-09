@@ -43,6 +43,10 @@ public class QmlVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitParameter(@NotNull QmlParameter o) {
+    visitPsiElement(o);
+  }
+
   public void visitProperty(@NotNull QmlProperty o) {
     visitPsiElement(o);
   }
@@ -52,6 +56,18 @@ public class QmlVisitor extends PsiElementVisitor {
   }
 
   public void visitQualifier(@NotNull QmlQualifier o) {
+    visitPsiElement(o);
+  }
+
+  public void visitSignal(@NotNull QmlSignal o) {
+    visitPsiElement(o);
+  }
+
+  public void visitSignalDefinition(@NotNull QmlSignalDefinition o) {
+    visitPsiElement(o);
+  }
+
+  public void visitSignalParameter(@NotNull QmlSignalParameter o) {
     visitPsiElement(o);
   }
 

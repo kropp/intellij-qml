@@ -13,4 +13,7 @@ public interface QmlBody extends PsiElement {
   @NotNull
   List<QmlPropertyDefinition> getPropertyDefinitionList();
 
+  @NotNull
+  List<QmlSignalDefinition> getSignalDefinitionList();
+
 }

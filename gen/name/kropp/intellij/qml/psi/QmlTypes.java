@@ -17,13 +17,18 @@ public interface QmlTypes {
   IElementType LINE_COMMENT = new QmlElementType("LINE_COMMENT");
   IElementType MODULE = new QmlElementType("MODULE");
   IElementType OBJECT = new QmlElementType("OBJECT");
+  IElementType PARAMETER = new QmlElementType("PARAMETER");
   IElementType PROPERTY = new QmlElementType("PROPERTY");
   IElementType PROPERTY_DEFINITION = new QmlElementType("PROPERTY_DEFINITION");
   IElementType QUALIFIER = new QmlElementType("QUALIFIER");
+  IElementType SIGNAL = new QmlElementType("SIGNAL");
+  IElementType SIGNAL_DEFINITION = new QmlElementType("SIGNAL_DEFINITION");
+  IElementType SIGNAL_PARAMETER = new QmlElementType("SIGNAL_PARAMETER");
   IElementType TYPE = new QmlElementType("TYPE");
   IElementType VERSION = new QmlElementType("VERSION");
 
   IElementType COLON = new QmlTokenType(":");
+  IElementType COMMA = new QmlTokenType(",");
   IElementType FALSE = new QmlTokenType("false");
   IElementType FLOAT = new QmlTokenType("float");
   IElementType IDENTIFIER = new QmlTokenType("identifier");
@@ -34,9 +39,12 @@ public interface QmlTypes {
   IElementType KEYWORD_IMPORT = new QmlTokenType("import");
   IElementType KEYWORD_PROPERTY = new QmlTokenType("property");
   IElementType KEYWORD_READONLY = new QmlTokenType("readonly");
+  IElementType KEYWORD_SIGNAL = new QmlTokenType("signal");
   IElementType KEYWORD_VAR = new QmlTokenType("var");
   IElementType LBRACE = new QmlTokenType("{");
+  IElementType LPAREN = new QmlTokenType("(");
   IElementType RBRACE = new QmlTokenType("}");
+  IElementType RPAREN = new QmlTokenType(")");
   IElementType STRING = new QmlTokenType("string");
   IElementType TRUE = new QmlTokenType("true");
   IElementType VALUE = new QmlTokenType("value");
@@ -71,6 +79,9 @@ public interface QmlTypes {
       else if (type == OBJECT) {
         return new QmlObjectImpl(node);
       }
+      else if (type == PARAMETER) {
+        return new QmlParameterImpl(node);
+      }
       else if (type == PROPERTY) {
         return new QmlPropertyImpl(node);
       }
@@ -79,6 +90,15 @@ public interface QmlTypes {
       }
       else if (type == QUALIFIER) {
         return new QmlQualifierImpl(node);
+      }
+      else if (type == SIGNAL) {
+        return new QmlSignalImpl(node);
+      }
+      else if (type == SIGNAL_DEFINITION) {
+        return new QmlSignalDefinitionImpl(node);
+      }
+      else if (type == SIGNAL_PARAMETER) {
+        return new QmlSignalParameterImpl(node);
       }
       else if (type == TYPE) {
         return new QmlTypeImpl(node);

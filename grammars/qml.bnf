@@ -18,9 +18,13 @@
     KEYWORD_PROPERTY = 'property'
     KEYWORD_VAR = 'var'
     KEYWORD_READONLY = 'readonly'
+    KEYWORD_SIGNAL = 'signal'
     LBRACE = '{'
     RBRACE = '}'
+    LPAREN = '('
+    RPAREN = ')'
     COLON = ':'
+    COMMA = ','
     TRUE = 'true'
     FALSE = 'false'
   ]
@@ -40,14 +44,19 @@ line_comment ::=
 block_comment ::=
 
 object ::= type body
-body ::= '{' (property_definition|attribute_assignment)* '}'
+body ::= '{' (property_definition|signal_definition|attribute_assignment)* '}'
 type ::= identifier
 
 attribute_assignment ::= (attribute ':')? attribute_value
 private attribute_value ::= object|string|boolean|number|identifier|value
+
 property_definition ::= 'default'? 'readonly'? 'property' ('var'|type) property (':' attribute_value)?
+signal_definition ::= 'signal' signal ('(' (signal_parameter ',')* signal_parameter? ')')?
+signal_parameter ::= ('var'|type) parameter
 
 property ::= identifier
 attribute ::= identifier
+signal ::= identifier
+parameter ::= identifier
 private number ::= integer|float
 private boolean ::= 'true'|'false'

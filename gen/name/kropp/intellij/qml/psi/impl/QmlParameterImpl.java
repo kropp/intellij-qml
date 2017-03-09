@@ -11,37 +11,19 @@ import static name.kropp.intellij.qml.psi.QmlTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import name.kropp.intellij.qml.psi.*;
 
-public class QmlBodyImpl extends ASTWrapperPsiElement implements QmlBody {
+public class QmlParameterImpl extends ASTWrapperPsiElement implements QmlParameter {
 
-  public QmlBodyImpl(ASTNode node) {
+  public QmlParameterImpl(ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull QmlVisitor visitor) {
-    visitor.visitBody(this);
+    visitor.visitParameter(this);
   }
 
   public void accept(@NotNull PsiElementVisitor visitor) {
     if (visitor instanceof QmlVisitor) accept((QmlVisitor)visitor);
     else super.accept(visitor);
-  }
-
-  @Override
-  @NotNull
-  public List<QmlAttributeAssignment> getAttributeAssignmentList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, QmlAttributeAssignment.class);
-  }
-
-  @Override
-  @NotNull
-  public List<QmlPropertyDefinition> getPropertyDefinitionList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, QmlPropertyDefinition.class);
-  }
-
-  @Override
-  @NotNull
-  public List<QmlSignalDefinition> getSignalDefinitionList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, QmlSignalDefinition.class);
   }
 
 }
