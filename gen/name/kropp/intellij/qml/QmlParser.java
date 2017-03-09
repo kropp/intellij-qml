@@ -303,17 +303,17 @@ public class QmlParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // 'default'? 'property' (type|'var') property (':' attribute_value)?
+  // 'default'? 'readonly'? 'property' ('var'|type) property (':' attribute_value)?
   public static boolean property_definition(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "property_definition")) return false;
-    if (!nextTokenIs(b, "<property definition>", KEYWORD_DEFAULT, KEYWORD_PROPERTY)) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, PROPERTY_DEFINITION, "<property definition>");
     r = property_definition_0(b, l + 1);
+    r = r && property_definition_1(b, l + 1);
     r = r && consumeToken(b, KEYWORD_PROPERTY);
-    r = r && property_definition_2(b, l + 1);
+    r = r && property_definition_3(b, l + 1);
     r = r && property(b, l + 1);
-    r = r && property_definition_4(b, l + 1);
+    r = r && property_definition_5(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
@@ -325,27 +325,34 @@ public class QmlParser implements PsiParser, LightPsiParser {
     return true;
   }
 
-  // type|'var'
-  private static boolean property_definition_2(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "property_definition_2")) return false;
+  // 'readonly'?
+  private static boolean property_definition_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "property_definition_1")) return false;
+    consumeToken(b, KEYWORD_READONLY);
+    return true;
+  }
+
+  // 'var'|type
+  private static boolean property_definition_3(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "property_definition_3")) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = type(b, l + 1);
-    if (!r) r = consumeToken(b, KEYWORD_VAR);
+    r = consumeToken(b, KEYWORD_VAR);
+    if (!r) r = type(b, l + 1);
     exit_section_(b, m, null, r);
     return r;
   }
 
   // (':' attribute_value)?
-  private static boolean property_definition_4(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "property_definition_4")) return false;
-    property_definition_4_0(b, l + 1);
+  private static boolean property_definition_5(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "property_definition_5")) return false;
+    property_definition_5_0(b, l + 1);
     return true;
   }
 
   // ':' attribute_value
-  private static boolean property_definition_4_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "property_definition_4_0")) return false;
+  private static boolean property_definition_5_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "property_definition_5_0")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = consumeToken(b, COLON);

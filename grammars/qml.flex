@@ -42,6 +42,7 @@ STRING="\""[^\"]*"\""
 "default"              { return KEYWORD_DEFAULT; }
 "property"             { return KEYWORD_PROPERTY; }
 "var"                  { return KEYWORD_VAR; }
+"readonly"             { return KEYWORD_READONLY; }
 "\{"                   { return LBRACE; }
 "\}"                   { return RBRACE; }
 ":"                    { return COLON; }

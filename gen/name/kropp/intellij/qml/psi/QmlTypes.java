@@ -33,6 +33,7 @@ public interface QmlTypes {
   IElementType KEYWORD_DEFAULT = new QmlTokenType("default");
   IElementType KEYWORD_IMPORT = new QmlTokenType("import");
   IElementType KEYWORD_PROPERTY = new QmlTokenType("property");
+  IElementType KEYWORD_READONLY = new QmlTokenType("readonly");
   IElementType KEYWORD_VAR = new QmlTokenType("var");
   IElementType LBRACE = new QmlTokenType("{");
   IElementType RBRACE = new QmlTokenType("}");
