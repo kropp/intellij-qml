@@ -5,15 +5,6 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface QmlAttributeAssignment extends PsiElement {
-
-  @Nullable
-  QmlAttribute getAttribute();
-
-  @Nullable
-  QmlMethodCall getMethodCall();
-
-  @Nullable
-  QmlObject getObject();
+public interface QmlArgument extends PsiElement {
 
 }

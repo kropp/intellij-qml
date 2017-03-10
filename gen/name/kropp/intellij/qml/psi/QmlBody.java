@@ -11,6 +11,9 @@ public interface QmlBody extends PsiElement {
   List<QmlAttributeAssignment> getAttributeAssignmentList();
 
   @NotNull
+  List<QmlMethodAttribute> getMethodAttributeList();
+
+  @NotNull
   List<QmlPropertyDefinition> getPropertyDefinitionList();
 
   @NotNull

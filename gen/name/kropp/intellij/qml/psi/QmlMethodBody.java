@@ -5,18 +5,9 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface QmlPropertyDefinition extends PsiElement {
-
-  @Nullable
-  QmlMethodCall getMethodCall();
-
-  @Nullable
-  QmlObject getObject();
+public interface QmlMethodBody extends PsiElement {
 
   @NotNull
-  QmlProperty getProperty();
-
-  @Nullable
-  QmlType getType();
+  QmlJavascript getJavascript();
 
 }

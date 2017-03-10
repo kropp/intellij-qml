@@ -19,6 +19,7 @@
     KEYWORD_VAR = 'var'
     KEYWORD_READONLY = 'readonly'
     KEYWORD_SIGNAL = 'signal'
+    KEYWORD_FUNCTION = 'function'
     LBRACE = '{'
     RBRACE = '}'
     LPAREN = '('
@@ -44,19 +45,29 @@ line_comment ::=
 block_comment ::=
 
 object ::= type body
-body ::= '{' (property_definition|signal_definition|attribute_assignment)* '}'
+body ::= '{' (property_definition|signal_definition|attribute_assignment|method_attribute)* '}'
 type ::= identifier
 
 attribute_assignment ::= (attribute ':')? attribute_value
-private attribute_value ::= object|string|boolean|number|identifier|value
+private attribute_value ::= method_call|object|string|boolean|number|identifier|value
 
 property_definition ::= 'default'? 'readonly'? 'property' ('var'|type) property (':' attribute_value)?
 signal_definition ::= 'signal' signal ('(' (signal_parameter ',')* signal_parameter? ')')?
 signal_parameter ::= ('var'|type) parameter
 
+method_attribute ::= 'function' method '(' (parameter ',')* parameter? ')' method_body
+
+method_call ::= method '(' (argument ',')* argument? ')'
+
+method_body ::= '{' javascript '}'
+javascript ::= (identifier|number|value|'('|')')*
+
 property ::= identifier
 attribute ::= identifier
 signal ::= identifier
 parameter ::= identifier
+method ::= identifier
+argument ::= identifier
+
 private number ::= integer|float
 private boolean ::= 'true'|'false'

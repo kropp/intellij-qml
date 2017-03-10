@@ -5,18 +5,12 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface QmlPropertyDefinition extends PsiElement {
-
-  @Nullable
-  QmlMethodCall getMethodCall();
-
-  @Nullable
-  QmlObject getObject();
+public interface QmlMethodCall extends PsiElement {
 
   @NotNull
-  QmlProperty getProperty();
+  List<QmlArgument> getArgumentList();
 
-  @Nullable
-  QmlType getType();
+  @NotNull
+  QmlMethod getMethod();
 
 }

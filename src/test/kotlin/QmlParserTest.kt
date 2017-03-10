@@ -7,6 +7,7 @@ class QmlParserTest : ParsingTestCase("parser", "qml", QmlParserDefinition()) {
   fun testImports() = doTest(true)
   fun testProperties() = doTest(true)
   fun testSignals() = doTest(true)
+  fun testMethodAttribute() = doTest(true)
 
   override fun getTestDataPath() = "testData"
 }

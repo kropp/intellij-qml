@@ -23,7 +23,10 @@ public class QmlParser implements PsiParser, LightPsiParser {
     boolean r;
     b = adapt_builder_(t, b, this, null);
     Marker m = enter_section_(b, 0, _COLLAPSE_, null);
-    if (t == ATTRIBUTE) {
+    if (t == ARGUMENT) {
+      r = argument(b, 0);
+    }
+    else if (t == ATTRIBUTE) {
       r = attribute(b, 0);
     }
     else if (t == ATTRIBUTE_ASSIGNMENT) {
@@ -41,8 +44,23 @@ public class QmlParser implements PsiParser, LightPsiParser {
     else if (t == IMPORTS) {
       r = imports(b, 0);
     }
+    else if (t == JAVASCRIPT) {
+      r = javascript(b, 0);
+    }
     else if (t == LINE_COMMENT) {
       r = line_comment(b, 0);
+    }
+    else if (t == METHOD) {
+      r = method(b, 0);
+    }
+    else if (t == METHOD_ATTRIBUTE) {
+      r = method_attribute(b, 0);
+    }
+    else if (t == METHOD_BODY) {
+      r = method_body(b, 0);
+    }
+    else if (t == METHOD_CALL) {
+      r = method_call(b, 0);
     }
     else if (t == MODULE) {
       r = module(b, 0);
@@ -89,6 +107,18 @@ public class QmlParser implements PsiParser, LightPsiParser {
 
   /* ********************************************************** */
   // identifier
+  public static boolean argument(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "argument")) return false;
+    if (!nextTokenIs(b, IDENTIFIER)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, IDENTIFIER);
+    exit_section_(b, m, ARGUMENT, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // identifier
   public static boolean attribute(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "attribute")) return false;
     if (!nextTokenIs(b, IDENTIFIER)) return false;
@@ -130,12 +160,13 @@ public class QmlParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // object|string|boolean|number|identifier|value
+  // method_call|object|string|boolean|number|identifier|value
   static boolean attribute_value(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "attribute_value")) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = object(b, l + 1);
+    r = method_call(b, l + 1);
+    if (!r) r = object(b, l + 1);
     if (!r) r = consumeToken(b, STRING);
     if (!r) r = boolean_$(b, l + 1);
     if (!r) r = number(b, l + 1);
@@ -153,7 +184,7 @@ public class QmlParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // '{' (property_definition|signal_definition|attribute_assignment)* '}'
+  // '{' (property_definition|signal_definition|attribute_assignment|method_attribute)* '}'
   public static boolean body(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "body")) return false;
     if (!nextTokenIs(b, LBRACE)) return false;
@@ -166,7 +197,7 @@ public class QmlParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // (property_definition|signal_definition|attribute_assignment)*
+  // (property_definition|signal_definition|attribute_assignment|method_attribute)*
   private static boolean body_1(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "body_1")) return false;
     int c = current_position_(b);
@@ -178,7 +209,7 @@ public class QmlParser implements PsiParser, LightPsiParser {
     return true;
   }
 
-  // property_definition|signal_definition|attribute_assignment
+  // property_definition|signal_definition|attribute_assignment|method_attribute
   private static boolean body_1_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "body_1_0")) return false;
     boolean r;
@@ -186,6 +217,7 @@ public class QmlParser implements PsiParser, LightPsiParser {
     r = property_definition(b, l + 1);
     if (!r) r = signal_definition(b, l + 1);
     if (!r) r = attribute_assignment(b, l + 1);
+    if (!r) r = method_attribute(b, l + 1);
     exit_section_(b, m, null, r);
     return r;
   }
@@ -259,9 +291,158 @@ public class QmlParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
+  // (identifier|number|value|'('|')')*
+  public static boolean javascript(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "javascript")) return false;
+    Marker m = enter_section_(b, l, _NONE_, JAVASCRIPT, "<javascript>");
+    int c = current_position_(b);
+    while (true) {
+      if (!javascript_0(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "javascript", c)) break;
+      c = current_position_(b);
+    }
+    exit_section_(b, l, m, true, false, null);
+    return true;
+  }
+
+  // identifier|number|value|'('|')'
+  private static boolean javascript_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "javascript_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, IDENTIFIER);
+    if (!r) r = number(b, l + 1);
+    if (!r) r = consumeToken(b, VALUE);
+    if (!r) r = consumeToken(b, LPAREN);
+    if (!r) r = consumeToken(b, RPAREN);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  /* ********************************************************** */
   public static boolean line_comment(PsiBuilder b, int l) {
     Marker m = enter_section_(b);
     exit_section_(b, m, LINE_COMMENT, true);
+    return true;
+  }
+
+  /* ********************************************************** */
+  // identifier
+  public static boolean method(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "method")) return false;
+    if (!nextTokenIs(b, IDENTIFIER)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, IDENTIFIER);
+    exit_section_(b, m, METHOD, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // 'function' method '(' (parameter ',')* parameter? ')' method_body
+  public static boolean method_attribute(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "method_attribute")) return false;
+    if (!nextTokenIs(b, KEYWORD_FUNCTION)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, KEYWORD_FUNCTION);
+    r = r && method(b, l + 1);
+    r = r && consumeToken(b, LPAREN);
+    r = r && method_attribute_3(b, l + 1);
+    r = r && method_attribute_4(b, l + 1);
+    r = r && consumeToken(b, RPAREN);
+    r = r && method_body(b, l + 1);
+    exit_section_(b, m, METHOD_ATTRIBUTE, r);
+    return r;
+  }
+
+  // (parameter ',')*
+  private static boolean method_attribute_3(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "method_attribute_3")) return false;
+    int c = current_position_(b);
+    while (true) {
+      if (!method_attribute_3_0(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "method_attribute_3", c)) break;
+      c = current_position_(b);
+    }
+    return true;
+  }
+
+  // parameter ','
+  private static boolean method_attribute_3_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "method_attribute_3_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = parameter(b, l + 1);
+    r = r && consumeToken(b, COMMA);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // parameter?
+  private static boolean method_attribute_4(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "method_attribute_4")) return false;
+    parameter(b, l + 1);
+    return true;
+  }
+
+  /* ********************************************************** */
+  // '{' javascript '}'
+  public static boolean method_body(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "method_body")) return false;
+    if (!nextTokenIs(b, LBRACE)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, LBRACE);
+    r = r && javascript(b, l + 1);
+    r = r && consumeToken(b, RBRACE);
+    exit_section_(b, m, METHOD_BODY, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // method '(' (argument ',')* argument? ')'
+  public static boolean method_call(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "method_call")) return false;
+    if (!nextTokenIs(b, IDENTIFIER)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = method(b, l + 1);
+    r = r && consumeToken(b, LPAREN);
+    r = r && method_call_2(b, l + 1);
+    r = r && method_call_3(b, l + 1);
+    r = r && consumeToken(b, RPAREN);
+    exit_section_(b, m, METHOD_CALL, r);
+    return r;
+  }
+
+  // (argument ',')*
+  private static boolean method_call_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "method_call_2")) return false;
+    int c = current_position_(b);
+    while (true) {
+      if (!method_call_2_0(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "method_call_2", c)) break;
+      c = current_position_(b);
+    }
+    return true;
+  }
+
+  // argument ','
+  private static boolean method_call_2_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "method_call_2_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = argument(b, l + 1);
+    r = r && consumeToken(b, COMMA);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // argument?
+  private static boolean method_call_3(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "method_call_3")) return false;
+    argument(b, l + 1);
     return true;
   }
 

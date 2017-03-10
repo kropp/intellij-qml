@@ -8,13 +8,19 @@ import name.kropp.intellij.qml.psi.impl.*;
 
 public interface QmlTypes {
 
+  IElementType ARGUMENT = new QmlElementType("ARGUMENT");
   IElementType ATTRIBUTE = new QmlElementType("ATTRIBUTE");
   IElementType ATTRIBUTE_ASSIGNMENT = new QmlElementType("ATTRIBUTE_ASSIGNMENT");
   IElementType BLOCK_COMMENT = new QmlElementType("BLOCK_COMMENT");
   IElementType BODY = new QmlElementType("BODY");
   IElementType IMPORT = new QmlElementType("IMPORT");
   IElementType IMPORTS = new QmlElementType("IMPORTS");
+  IElementType JAVASCRIPT = new QmlElementType("JAVASCRIPT");
   IElementType LINE_COMMENT = new QmlElementType("LINE_COMMENT");
+  IElementType METHOD = new QmlElementType("METHOD");
+  IElementType METHOD_ATTRIBUTE = new QmlElementType("METHOD_ATTRIBUTE");
+  IElementType METHOD_BODY = new QmlElementType("METHOD_BODY");
+  IElementType METHOD_CALL = new QmlElementType("METHOD_CALL");
   IElementType MODULE = new QmlElementType("MODULE");
   IElementType OBJECT = new QmlElementType("OBJECT");
   IElementType PARAMETER = new QmlElementType("PARAMETER");
@@ -36,6 +42,7 @@ public interface QmlTypes {
   IElementType INTEGER = new QmlTokenType("integer");
   IElementType KEYWORD_AS = new QmlTokenType("as");
   IElementType KEYWORD_DEFAULT = new QmlTokenType("default");
+  IElementType KEYWORD_FUNCTION = new QmlTokenType("function");
   IElementType KEYWORD_IMPORT = new QmlTokenType("import");
   IElementType KEYWORD_PROPERTY = new QmlTokenType("property");
   IElementType KEYWORD_READONLY = new QmlTokenType("readonly");
@@ -52,7 +59,10 @@ public interface QmlTypes {
   class Factory {
     public static PsiElement createElement(ASTNode node) {
       IElementType type = node.getElementType();
-       if (type == ATTRIBUTE) {
+       if (type == ARGUMENT) {
+        return new QmlArgumentImpl(node);
+      }
+      else if (type == ATTRIBUTE) {
         return new QmlAttributeImpl(node);
       }
       else if (type == ATTRIBUTE_ASSIGNMENT) {
@@ -70,8 +80,23 @@ public interface QmlTypes {
       else if (type == IMPORTS) {
         return new QmlImportsImpl(node);
       }
+      else if (type == JAVASCRIPT) {
+        return new QmlJavascriptImpl(node);
+      }
       else if (type == LINE_COMMENT) {
         return new QmlLineCommentImpl(node);
+      }
+      else if (type == METHOD) {
+        return new QmlMethodImpl(node);
+      }
+      else if (type == METHOD_ATTRIBUTE) {
+        return new QmlMethodAttributeImpl(node);
+      }
+      else if (type == METHOD_BODY) {
+        return new QmlMethodBodyImpl(node);
+      }
+      else if (type == METHOD_CALL) {
+        return new QmlMethodCallImpl(node);
       }
       else if (type == MODULE) {
         return new QmlModuleImpl(node);

@@ -44,6 +44,7 @@ STRING="\""[^\"]*"\""
 "var"                  { return KEYWORD_VAR; }
 "readonly"             { return KEYWORD_READONLY; }
 "signal"               { return KEYWORD_SIGNAL; }
+"function"             { return KEYWORD_FUNCTION; }
 "\{"                   { return LBRACE; }
 "\}"                   { return RBRACE; }
 "\("                   { return LPAREN; }
@@ -54,7 +55,7 @@ STRING="\""[^\"]*"\""
 [0-9]+                 { return INTEGER; }
 [a-zA-Z0-9\.]+         { return IDENTIFIER; }
 {STRING}               { return STRING; }
-[a-zA-Z0-9\.\;\&]+     { return VALUE; }
+[a-zA-Z0-9\.\;\/\&]+   { return VALUE; }
 
 
 [^] { return BAD_CHARACTER; }

@@ -11,14 +11,14 @@ import static name.kropp.intellij.qml.psi.QmlTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import name.kropp.intellij.qml.psi.*;
 
-public class QmlBodyImpl extends ASTWrapperPsiElement implements QmlBody {
+public class QmlMethodAttributeImpl extends ASTWrapperPsiElement implements QmlMethodAttribute {
 
-  public QmlBodyImpl(ASTNode node) {
+  public QmlMethodAttributeImpl(ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull QmlVisitor visitor) {
-    visitor.visitBody(this);
+    visitor.visitMethodAttribute(this);
   }
 
   public void accept(@NotNull PsiElementVisitor visitor) {
@@ -28,26 +28,20 @@ public class QmlBodyImpl extends ASTWrapperPsiElement implements QmlBody {
 
   @Override
   @NotNull
-  public List<QmlAttributeAssignment> getAttributeAssignmentList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, QmlAttributeAssignment.class);
+  public QmlMethod getMethod() {
+    return findNotNullChildByClass(QmlMethod.class);
   }
 
   @Override
   @NotNull
-  public List<QmlMethodAttribute> getMethodAttributeList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, QmlMethodAttribute.class);
+  public QmlMethodBody getMethodBody() {
+    return findNotNullChildByClass(QmlMethodBody.class);
   }
 
   @Override
   @NotNull
-  public List<QmlPropertyDefinition> getPropertyDefinitionList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, QmlPropertyDefinition.class);
-  }
-
-  @Override
-  @NotNull
-  public List<QmlSignalDefinition> getSignalDefinitionList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, QmlSignalDefinition.class);
+  public List<QmlParameter> getParameterList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, QmlParameter.class);
   }
 
 }

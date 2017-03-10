@@ -11,14 +11,14 @@ import static name.kropp.intellij.qml.psi.QmlTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import name.kropp.intellij.qml.psi.*;
 
-public class QmlPropertyDefinitionImpl extends ASTWrapperPsiElement implements QmlPropertyDefinition {
+public class QmlMethodCallImpl extends ASTWrapperPsiElement implements QmlMethodCall {
 
-  public QmlPropertyDefinitionImpl(ASTNode node) {
+  public QmlMethodCallImpl(ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull QmlVisitor visitor) {
-    visitor.visitPropertyDefinition(this);
+    visitor.visitMethodCall(this);
   }
 
   public void accept(@NotNull PsiElementVisitor visitor) {
@@ -27,27 +27,15 @@ public class QmlPropertyDefinitionImpl extends ASTWrapperPsiElement implements Q
   }
 
   @Override
-  @Nullable
-  public QmlMethodCall getMethodCall() {
-    return findChildByClass(QmlMethodCall.class);
-  }
-
-  @Override
-  @Nullable
-  public QmlObject getObject() {
-    return findChildByClass(QmlObject.class);
+  @NotNull
+  public List<QmlArgument> getArgumentList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, QmlArgument.class);
   }
 
   @Override
   @NotNull
-  public QmlProperty getProperty() {
-    return findNotNullChildByClass(QmlProperty.class);
-  }
-
-  @Override
-  @Nullable
-  public QmlType getType() {
-    return findChildByClass(QmlType.class);
+  public QmlMethod getMethod() {
+    return findNotNullChildByClass(QmlMethod.class);
   }
 
 }
