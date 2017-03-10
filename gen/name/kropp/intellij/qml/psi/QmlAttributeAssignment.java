@@ -11,6 +11,9 @@ public interface QmlAttributeAssignment extends PsiElement {
   QmlAttribute getAttribute();
 
   @Nullable
+  QmlList getList();
+
+  @Nullable
   QmlMethodBody getMethodBody();
 
   @Nullable

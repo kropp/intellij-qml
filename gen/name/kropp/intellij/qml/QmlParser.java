@@ -50,6 +50,9 @@ public class QmlParser implements PsiParser, LightPsiParser {
     else if (t == LINE_COMMENT) {
       r = line_comment(b, 0);
     }
+    else if (t == LIST) {
+      r = list(b, 0);
+    }
     else if (t == METHOD) {
       r = method(b, 0);
     }
@@ -163,13 +166,14 @@ public class QmlParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // method_call|method_body|object|string|boolean|number|identifier|value
+  // method_call|method_body|list|object|string|boolean|number|identifier|value
   static boolean attribute_value(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "attribute_value")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = method_call(b, l + 1);
     if (!r) r = method_body(b, l + 1);
+    if (!r) r = list(b, l + 1);
     if (!r) r = object(b, l + 1);
     if (!r) r = consumeToken(b, STRING);
     if (!r) r = boolean_$(b, l + 1);
@@ -331,6 +335,51 @@ public class QmlParser implements PsiParser, LightPsiParser {
     Marker m = enter_section_(b);
     exit_section_(b, m, LINE_COMMENT, true);
     return true;
+  }
+
+  /* ********************************************************** */
+  // '[' object? (',' object)* ']'
+  public static boolean list(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "list")) return false;
+    if (!nextTokenIs(b, LBRACKET)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, LBRACKET);
+    r = r && list_1(b, l + 1);
+    r = r && list_2(b, l + 1);
+    r = r && consumeToken(b, RBRACKET);
+    exit_section_(b, m, LIST, r);
+    return r;
+  }
+
+  // object?
+  private static boolean list_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "list_1")) return false;
+    object(b, l + 1);
+    return true;
+  }
+
+  // (',' object)*
+  private static boolean list_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "list_2")) return false;
+    int c = current_position_(b);
+    while (true) {
+      if (!list_2_0(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "list_2", c)) break;
+      c = current_position_(b);
+    }
+    return true;
+  }
+
+  // ',' object
+  private static boolean list_2_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "list_2_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, COMMA);
+    r = r && object(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
   }
 
   /* ********************************************************** */

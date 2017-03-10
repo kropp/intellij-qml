@@ -9,6 +9,7 @@ class QmlParserTest : ParsingTestCase("parser", "qml", QmlParserDefinition()) {
   fun testSignals() = doTest(true)
   fun testMethodAttribute() = doTest(true)
   fun testInlineCode() = doTest(true)
+  fun testLists() = doTest(true)
 
   override fun getTestDataPath() = "testData"
 }

@@ -17,6 +17,7 @@ public interface QmlTypes {
   IElementType IMPORTS = new QmlElementType("IMPORTS");
   IElementType JAVASCRIPT = new QmlElementType("JAVASCRIPT");
   IElementType LINE_COMMENT = new QmlElementType("LINE_COMMENT");
+  IElementType LIST = new QmlElementType("LIST");
   IElementType METHOD = new QmlElementType("METHOD");
   IElementType METHOD_ATTRIBUTE = new QmlElementType("METHOD_ATTRIBUTE");
   IElementType METHOD_BODY = new QmlElementType("METHOD_BODY");
@@ -49,8 +50,10 @@ public interface QmlTypes {
   IElementType KEYWORD_SIGNAL = new QmlTokenType("signal");
   IElementType KEYWORD_VAR = new QmlTokenType("var");
   IElementType LBRACE = new QmlTokenType("{");
+  IElementType LBRACKET = new QmlTokenType("[");
   IElementType LPAREN = new QmlTokenType("(");
   IElementType RBRACE = new QmlTokenType("}");
+  IElementType RBRACKET = new QmlTokenType("]");
   IElementType RPAREN = new QmlTokenType(")");
   IElementType STRING = new QmlTokenType("string");
   IElementType TRUE = new QmlTokenType("true");
@@ -85,6 +88,9 @@ public interface QmlTypes {
       }
       else if (type == LINE_COMMENT) {
         return new QmlLineCommentImpl(node);
+      }
+      else if (type == LIST) {
+        return new QmlListImpl(node);
       }
       else if (type == METHOD) {
         return new QmlMethodImpl(node);

@@ -28,6 +28,12 @@ public class QmlPropertyDefinitionImpl extends ASTWrapperPsiElement implements Q
 
   @Override
   @Nullable
+  public QmlList getList() {
+    return findChildByClass(QmlList.class);
+  }
+
+  @Override
+  @Nullable
   public QmlMethodBody getMethodBody() {
     return findChildByClass(QmlMethodBody.class);
   }

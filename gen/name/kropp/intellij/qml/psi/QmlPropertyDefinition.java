@@ -8,6 +8,9 @@ import com.intellij.psi.PsiElement;
 public interface QmlPropertyDefinition extends PsiElement {
 
   @Nullable
+  QmlList getList();
+
+  @Nullable
   QmlMethodBody getMethodBody();
 
   @Nullable

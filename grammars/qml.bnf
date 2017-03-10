@@ -22,6 +22,8 @@
     KEYWORD_FUNCTION = 'function'
     LBRACE = '{'
     RBRACE = '}'
+    LBRACKET = '['
+    RBRACKET = ']'
     LPAREN = '('
     RPAREN = ')'
     COLON = ':'
@@ -49,7 +51,7 @@ body ::= '{' (property_definition|signal_definition|attribute_assignment|method_
 type ::= identifier
 
 attribute_assignment ::= (attribute ':')? attribute_value
-private attribute_value ::= method_call|method_body|object|string|boolean|number|identifier|value
+private attribute_value ::= method_call|method_body|list|object|string|boolean|number|identifier|value
 
 property_definition ::= 'default'? 'readonly'? 'property' ('var'|type) property (':' attribute_value)?
 signal_definition ::= 'signal' signal ('(' (signal_parameter ',')* signal_parameter? ')')?
@@ -61,6 +63,8 @@ method_call ::= method '(' (argument ',')* argument? ')'
 
 method_body ::= '{' javascript '}'
 javascript ::= ('var'|'('|')'|','|string|identifier|number|value)*
+
+list ::= '[' object? (',' object)* ']'
 
 property ::= identifier
 attribute ::= identifier

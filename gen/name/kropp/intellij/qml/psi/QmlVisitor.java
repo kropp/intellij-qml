@@ -43,6 +43,10 @@ public class QmlVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitList(@NotNull QmlList o) {
+    visitPsiElement(o);
+  }
+
   public void visitMethod(@NotNull QmlMethod o) {
     visitPsiElement(o);
   }

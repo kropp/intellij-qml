@@ -34,6 +34,12 @@ public class QmlAttributeAssignmentImpl extends ASTWrapperPsiElement implements 
 
   @Override
   @Nullable
+  public QmlList getList() {
+    return findChildByClass(QmlList.class);
+  }
+
+  @Override
+  @Nullable
   public QmlMethodBody getMethodBody() {
     return findChildByClass(QmlMethodBody.class);
   }
