@@ -67,7 +67,7 @@ attribute ::= identifier
 signal ::= identifier
 parameter ::= identifier
 method ::= identifier
-argument ::= identifier
+argument ::= string|boolean|number|identifier|value
 
 private number ::= integer|float
 private boolean ::= 'true'|'false'

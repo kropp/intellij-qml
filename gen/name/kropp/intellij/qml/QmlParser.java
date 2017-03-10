@@ -106,14 +106,17 @@ public class QmlParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // identifier
+  // string|boolean|number|identifier|value
   public static boolean argument(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "argument")) return false;
-    if (!nextTokenIs(b, IDENTIFIER)) return false;
     boolean r;
-    Marker m = enter_section_(b);
-    r = consumeToken(b, IDENTIFIER);
-    exit_section_(b, m, ARGUMENT, r);
+    Marker m = enter_section_(b, l, _NONE_, ARGUMENT, "<argument>");
+    r = consumeToken(b, STRING);
+    if (!r) r = boolean_$(b, l + 1);
+    if (!r) r = number(b, l + 1);
+    if (!r) r = consumeToken(b, IDENTIFIER);
+    if (!r) r = consumeToken(b, VALUE);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
