@@ -7,4 +7,7 @@ import com.intellij.psi.PsiElement;
 
 public interface QmlJavascript extends PsiElement {
 
+  @NotNull
+  List<QmlJavascript> getJavascriptList();
+
 }
