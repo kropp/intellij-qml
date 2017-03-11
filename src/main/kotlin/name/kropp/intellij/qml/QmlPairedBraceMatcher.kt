@@ -8,7 +8,12 @@ import name.kropp.intellij.qml.psi.QmlObject
 import name.kropp.intellij.qml.psi.QmlTypes
 
 class QmlPairedBraceMatcher : PairedBraceMatcher {
-  override fun getPairs() = arrayOf(BracePair(QmlTypes.LBRACE, QmlTypes.RBRACE, true))
+  override fun getPairs() = arrayOf(
+      BracePair(QmlTypes.LBRACE, QmlTypes.RBRACE, true),
+      BracePair(QmlTypes.LBRACKET, QmlTypes.RBRACKET, true),
+      BracePair(QmlTypes.LPAREN, QmlTypes.RPAREN, false)
+  )
+
   override fun isPairedBracesAllowedBeforeType(lbraceType: IElementType, contextType: IElementType?) = true
 
   override fun getCodeConstructStart(file: PsiFile, openingBraceOffset: Int): Int {
