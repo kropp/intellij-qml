@@ -55,6 +55,7 @@ public interface QmlTypes {
   IElementType RBRACE = new QmlTokenType("}");
   IElementType RBRACKET = new QmlTokenType("]");
   IElementType RPAREN = new QmlTokenType(")");
+  IElementType SEMICOLON = new QmlTokenType(";");
   IElementType STRING = new QmlTokenType("string");
   IElementType TRUE = new QmlTokenType("true");
   IElementType VALUE = new QmlTokenType("value");

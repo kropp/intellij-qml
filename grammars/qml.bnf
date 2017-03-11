@@ -27,6 +27,7 @@
     LPAREN = '('
     RPAREN = ')'
     COLON = ':'
+    SEMICOLON = ';'
     COMMA = ','
     TRUE = 'true'
     FALSE = 'false'
@@ -50,7 +51,7 @@ object ::= type body
 body ::= '{' (property_definition|signal_definition|attribute_assignment|method_attribute)* '}'
 type ::= identifier
 
-attribute_assignment ::= (attribute ':')? attribute_value
+attribute_assignment ::= (attribute ':')? attribute_value ';'?
 private attribute_value ::= method_call|method_body|list|object|string|boolean|number|identifier|value
 
 property_definition ::= 'default'? 'readonly'? 'property' ('var'|type) property (':' attribute_value)?
@@ -62,7 +63,7 @@ method_attribute ::= 'function' method '(' (parameter ',')* parameter? ')' metho
 method_call ::= method '(' (argument ',')* argument? ')'
 
 method_body ::= '{' javascript '}'
-javascript ::= ('var'|'('|')'|','|string|identifier|number|value)*
+javascript ::= ('var'|'('|')'|','|';'|string|identifier|number|value)*
 
 list ::= '[' object? (',' object)* ']'
 

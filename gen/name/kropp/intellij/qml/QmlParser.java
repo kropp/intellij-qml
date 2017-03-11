@@ -136,13 +136,14 @@ public class QmlParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // (attribute ':')? attribute_value
+  // (attribute ':')? attribute_value ';'?
   public static boolean attribute_assignment(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "attribute_assignment")) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, ATTRIBUTE_ASSIGNMENT, "<attribute assignment>");
     r = attribute_assignment_0(b, l + 1);
     r = r && attribute_value(b, l + 1);
+    r = r && attribute_assignment_2(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
@@ -163,6 +164,13 @@ public class QmlParser implements PsiParser, LightPsiParser {
     r = r && consumeToken(b, COLON);
     exit_section_(b, m, null, r);
     return r;
+  }
+
+  // ';'?
+  private static boolean attribute_assignment_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "attribute_assignment_2")) return false;
+    consumeToken(b, SEMICOLON);
+    return true;
   }
 
   /* ********************************************************** */
@@ -299,7 +307,7 @@ public class QmlParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // ('var'|'('|')'|','|string|identifier|number|value)*
+  // ('var'|'('|')'|','|';'|string|identifier|number|value)*
   public static boolean javascript(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "javascript")) return false;
     Marker m = enter_section_(b, l, _NONE_, JAVASCRIPT, "<javascript>");
@@ -313,7 +321,7 @@ public class QmlParser implements PsiParser, LightPsiParser {
     return true;
   }
 
-  // 'var'|'('|')'|','|string|identifier|number|value
+  // 'var'|'('|')'|','|';'|string|identifier|number|value
   private static boolean javascript_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "javascript_0")) return false;
     boolean r;
@@ -322,6 +330,7 @@ public class QmlParser implements PsiParser, LightPsiParser {
     if (!r) r = consumeToken(b, LPAREN);
     if (!r) r = consumeToken(b, RPAREN);
     if (!r) r = consumeToken(b, COMMA);
+    if (!r) r = consumeToken(b, SEMICOLON);
     if (!r) r = consumeToken(b, STRING);
     if (!r) r = consumeToken(b, IDENTIFIER);
     if (!r) r = number(b, l + 1);

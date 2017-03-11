@@ -52,12 +52,13 @@ STRING="\""[^\"]*"\""
 "\("                   { return LPAREN; }
 "\)"                   { return RPAREN; }
 ":"                    { return COLON; }
+";"                    { return SEMICOLON; }
 ","                    { return COMMA; }
 [0-9]+"."[0-9]+        { return FLOAT; }
 [0-9]+                 { return INTEGER; }
 [a-zA-Z0-9\.]+         { return IDENTIFIER; }
 {STRING}               { return STRING; }
-[a-zA-Z0-9\.\+\;\/\&\=]+   { return VALUE; }
+[a-zA-Z0-9\.\+\/\&\=]+   { return VALUE; }
 
 
 [^] { return BAD_CHARACTER; }
