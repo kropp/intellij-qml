@@ -39,10 +39,11 @@
 qml ::= imports object
 
 imports ::= import*
-import ::= 'import' module version? ('as' qualifier)?
+import ::= 'import' (module version? | filename) ('as' qualifier)?
 version ::= float // version_major '.' version_minor actually
 module ::= identifier
 qualifier ::= identifier
+filename ::= string
 
 line_comment ::=
 block_comment ::=

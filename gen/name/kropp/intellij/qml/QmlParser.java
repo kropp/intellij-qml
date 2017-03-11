@@ -38,6 +38,9 @@ public class QmlParser implements PsiParser, LightPsiParser {
     else if (t == BODY) {
       r = body(b, 0);
     }
+    else if (t == FILENAME) {
+      r = filename(b, 0);
+    }
     else if (t == IMPORT) {
       r = consumeToken(b, IMPORT_$);
     }
@@ -252,37 +255,70 @@ public class QmlParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // 'import' module version? ('as' qualifier)?
+  // string
+  public static boolean filename(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "filename")) return false;
+    if (!nextTokenIs(b, STRING)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, STRING);
+    exit_section_(b, m, FILENAME, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // 'import' (module version? | filename) ('as' qualifier)?
   public static boolean import_$(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "import_$")) return false;
     if (!nextTokenIs(b, KEYWORD_IMPORT)) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = consumeToken(b, KEYWORD_IMPORT);
-    r = r && module(b, l + 1);
+    r = r && import_1(b, l + 1);
     r = r && import_2(b, l + 1);
-    r = r && import_3(b, l + 1);
     exit_section_(b, m, IMPORT, r);
     return r;
   }
 
+  // module version? | filename
+  private static boolean import_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "import_1")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = import_1_0(b, l + 1);
+    if (!r) r = filename(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // module version?
+  private static boolean import_1_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "import_1_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = module(b, l + 1);
+    r = r && import_1_0_1(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
   // version?
-  private static boolean import_2(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "import_2")) return false;
+  private static boolean import_1_0_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "import_1_0_1")) return false;
     version(b, l + 1);
     return true;
   }
 
   // ('as' qualifier)?
-  private static boolean import_3(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "import_3")) return false;
-    import_3_0(b, l + 1);
+  private static boolean import_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "import_2")) return false;
+    import_2_0(b, l + 1);
     return true;
   }
 
   // 'as' qualifier
-  private static boolean import_3_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "import_3_0")) return false;
+  private static boolean import_2_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "import_2_0")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = consumeToken(b, KEYWORD_AS);

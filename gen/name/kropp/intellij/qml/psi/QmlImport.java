@@ -7,7 +7,10 @@ import com.intellij.psi.PsiElement;
 
 public interface QmlImport extends PsiElement {
 
-  @NotNull
+  @Nullable
+  QmlFilename getFilename();
+
+  @Nullable
   QmlModule getModule();
 
   @Nullable

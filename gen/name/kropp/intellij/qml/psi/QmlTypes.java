@@ -13,6 +13,7 @@ public interface QmlTypes {
   IElementType ATTRIBUTE_ASSIGNMENT = new QmlElementType("ATTRIBUTE_ASSIGNMENT");
   IElementType BLOCK_COMMENT = new QmlElementType("BLOCK_COMMENT");
   IElementType BODY = new QmlElementType("BODY");
+  IElementType FILENAME = new QmlElementType("FILENAME");
   IElementType IMPORT = new QmlElementType("IMPORT");
   IElementType IMPORTS = new QmlElementType("IMPORTS");
   IElementType JAVASCRIPT = new QmlElementType("JAVASCRIPT");
@@ -77,6 +78,9 @@ public interface QmlTypes {
       }
       else if (type == BODY) {
         return new QmlBodyImpl(node);
+      }
+      else if (type == FILENAME) {
+        return new QmlFilenameImpl(node);
       }
       else if (type == IMPORT) {
         return new QmlImportImpl(node);
