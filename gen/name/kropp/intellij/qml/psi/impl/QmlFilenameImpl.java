@@ -8,10 +8,10 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.util.PsiTreeUtil;
 import static name.kropp.intellij.qml.psi.QmlTypes.*;
-import com.intellij.extapi.psi.ASTWrapperPsiElement;
+import name.kropp.intellij.qml.psi.QmlFilenameMixin;
 import name.kropp.intellij.qml.psi.*;
 
-public class QmlFilenameImpl extends ASTWrapperPsiElement implements QmlFilename {
+public class QmlFilenameImpl extends QmlFilenameMixin implements QmlFilename {
 
   public QmlFilenameImpl(ASTNode node) {
     super(node);

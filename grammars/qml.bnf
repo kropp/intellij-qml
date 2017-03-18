@@ -43,7 +43,7 @@ import ::= 'import' (module version? | filename) ('as' qualifier)?
 version ::= float // version_major '.' version_minor actually
 module ::= identifier
 qualifier ::= identifier
-filename ::= string
+filename ::= string {mixin="name.kropp.intellij.qml.psi.QmlFilenameMixin"}
 
 line_comment ::=
 block_comment ::=
