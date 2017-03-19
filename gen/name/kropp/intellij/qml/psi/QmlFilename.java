@@ -7,4 +7,7 @@ import com.intellij.psi.PsiElement;
 
 public interface QmlFilename extends PsiElement {
 
+  @NotNull
+  QmlFilename updateText(String newText);
+
 }

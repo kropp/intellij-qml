@@ -33,7 +33,7 @@
     FALSE = 'false'
   ]
 
-  //psiImplUtilClass = "name.kropp.intellij.qml.psi.QmlPsiImplUtil"
+  psiImplUtilClass = "name.kropp.intellij.qml.psi.QmlPsiImplUtil"
 }
 
 qml ::= imports object
@@ -43,7 +43,7 @@ import ::= 'import' (module version? | filename) ('as' qualifier)?
 version ::= float // version_major '.' version_minor actually
 module ::= identifier
 qualifier ::= identifier
-filename ::= string {mixin="name.kropp.intellij.qml.psi.QmlFilenameMixin"}
+filename ::= string {mixin="name.kropp.intellij.qml.psi.QmlFilenameMixin" methods=[updateText]}
 
 line_comment ::=
 block_comment ::=
