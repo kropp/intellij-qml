@@ -592,12 +592,11 @@ public class QmlParser implements PsiParser, LightPsiParser {
   // type body
   public static boolean object(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "object")) return false;
-    if (!nextTokenIs(b, IDENTIFIER)) return false;
     boolean r;
-    Marker m = enter_section_(b);
+    Marker m = enter_section_(b, l, _NONE_, OBJECT, "<object>");
     r = type(b, l + 1);
     r = r && body(b, l + 1);
-    exit_section_(b, m, OBJECT, r);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
@@ -688,7 +687,6 @@ public class QmlParser implements PsiParser, LightPsiParser {
   // imports object
   static boolean qml(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "qml")) return false;
-    if (!nextTokenIs(b, "", KEYWORD_IMPORT, IDENTIFIER)) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = imports(b, l + 1);
@@ -789,7 +787,6 @@ public class QmlParser implements PsiParser, LightPsiParser {
   // ('var'|type) parameter
   public static boolean signal_parameter(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "signal_parameter")) return false;
-    if (!nextTokenIs(b, "<signal parameter>", KEYWORD_VAR, IDENTIFIER)) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, SIGNAL_PARAMETER, "<signal parameter>");
     r = signal_parameter_0(b, l + 1);
@@ -810,14 +807,15 @@ public class QmlParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // identifier
+  // 'double'|'real'|identifier
   public static boolean type(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "type")) return false;
-    if (!nextTokenIs(b, IDENTIFIER)) return false;
     boolean r;
-    Marker m = enter_section_(b);
-    r = consumeToken(b, IDENTIFIER);
-    exit_section_(b, m, TYPE, r);
+    Marker m = enter_section_(b, l, _NONE_, TYPE, "<type>");
+    r = consumeToken(b, KEYWORD_DOUBLE);
+    if (!r) r = consumeToken(b, KEYWORD_REAL);
+    if (!r) r = consumeToken(b, IDENTIFIER);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 

@@ -20,6 +20,8 @@
     KEYWORD_READONLY = 'readonly'
     KEYWORD_SIGNAL = 'signal'
     KEYWORD_FUNCTION = 'function'
+    KEYWORD_DOUBLE = 'double'
+    KEYWORD_REAL = 'real'
     LBRACE = '{'
     RBRACE = '}'
     LBRACKET = '['
@@ -50,7 +52,7 @@ block_comment ::=
 
 object ::= type body
 body ::= '{' (property_definition|signal_definition|attribute_assignment|method_attribute)* '}'
-type ::= identifier
+type ::= 'double'|'real'|identifier
 
 attribute_assignment ::= (attribute ':')? attribute_value ';'?
 private attribute_value ::= method_call|method_body|list|object|string|boolean|number|identifier|value

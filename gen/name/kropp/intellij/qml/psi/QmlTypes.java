@@ -44,10 +44,12 @@ public interface QmlTypes {
   IElementType INTEGER = new QmlTokenType("integer");
   IElementType KEYWORD_AS = new QmlTokenType("as");
   IElementType KEYWORD_DEFAULT = new QmlTokenType("default");
+  IElementType KEYWORD_DOUBLE = new QmlTokenType("double");
   IElementType KEYWORD_FUNCTION = new QmlTokenType("function");
   IElementType KEYWORD_IMPORT = new QmlTokenType("import");
   IElementType KEYWORD_PROPERTY = new QmlTokenType("property");
   IElementType KEYWORD_READONLY = new QmlTokenType("readonly");
+  IElementType KEYWORD_REAL = new QmlTokenType("real");
   IElementType KEYWORD_SIGNAL = new QmlTokenType("signal");
   IElementType KEYWORD_VAR = new QmlTokenType("var");
   IElementType LBRACE = new QmlTokenType("{");
