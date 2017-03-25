@@ -25,6 +25,7 @@ Basic syntax support
         <lang.commenter language="QML" implementationClass="name.kropp.intellij.qml.QmlCommenter"/>
         <lang.braceMatcher language="QML" implementationClass="name.kropp.intellij.qml.QmlPairedBraceMatcher"/>
         <lang.foldingBuilder language="QML" implementationClass="name.kropp.intellij.qml.QmlFoldingBuilder"/>
+        <lang.psiStructureViewFactory language="QML" implementationClass="name.kropp.intellij.qml.QmlStructureViewFactory" />
 
         <lang.elementManipulator implementationClass="name.kropp.intellij.qml.psi.QmlFilenameManipulator"
             forClass="name.kropp.intellij.qml.psi.QmlFilename"/>
