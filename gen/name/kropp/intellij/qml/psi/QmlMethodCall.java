@@ -1,11 +1,11 @@
 // This is a generated file. Not intended for manual editing.
 package name.kropp.intellij.qml.psi;
 
-import java.util.List;
-import org.jetbrains.annotations.*;
-import com.intellij.psi.PsiElement;
+import org.jetbrains.annotations.NotNull;
 
-public interface QmlMethodCall extends PsiElement {
+import java.util.List;
+
+public interface QmlMethodCall extends QmlPsiElement {
 
   @NotNull
   List<QmlArgument> getArgumentList();

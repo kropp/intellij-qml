@@ -1,6 +1,7 @@
 {
   parserClass = "name.kropp.intellij.qml.QmlParser"
   extends = "com.intellij.extapi.psi.ASTWrapperPsiElement"
+  implements = "name.kropp.intellij.qml.psi.QmlPsiElement"
 
   psiClassPrefix = "Qml"
   psiImplClassSuffix = "Impl"

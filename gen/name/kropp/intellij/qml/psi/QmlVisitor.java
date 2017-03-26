@@ -1,9 +1,8 @@
 // This is a generated file. Not intended for manual editing.
 package name.kropp.intellij.qml.psi;
 
-import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElementVisitor;
-import com.intellij.psi.PsiElement;
+import org.jetbrains.annotations.NotNull;
 
 public class QmlVisitor extends PsiElementVisitor {
 
@@ -111,7 +110,7 @@ public class QmlVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-  public void visitPsiElement(@NotNull PsiElement o) {
+  public void visitPsiElement(@NotNull QmlPsiElement o) {
     visitElement(o);
   }
 

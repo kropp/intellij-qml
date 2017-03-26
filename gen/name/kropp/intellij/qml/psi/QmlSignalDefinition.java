@@ -1,11 +1,11 @@
 // This is a generated file. Not intended for manual editing.
 package name.kropp.intellij.qml.psi;
 
-import java.util.List;
-import org.jetbrains.annotations.*;
-import com.intellij.psi.PsiElement;
+import org.jetbrains.annotations.NotNull;
 
-public interface QmlSignalDefinition extends PsiElement {
+import java.util.List;
+
+public interface QmlSignalDefinition extends QmlPsiElement {
 
   @NotNull
   QmlSignal getSignal();

@@ -1,11 +1,9 @@
 // This is a generated file. Not intended for manual editing.
 package name.kropp.intellij.qml.psi;
 
-import java.util.List;
-import org.jetbrains.annotations.*;
-import com.intellij.psi.PsiElement;
+import org.jetbrains.annotations.Nullable;
 
-public interface QmlAttributeAssignment extends PsiElement {
+public interface QmlAttributeAssignment extends QmlPsiElement {
 
   @Nullable
   QmlAttribute getAttribute();
