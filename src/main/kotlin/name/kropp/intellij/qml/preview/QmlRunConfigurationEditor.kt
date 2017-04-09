@@ -7,14 +7,15 @@ import com.intellij.ui.components.JBRadioButton
 import com.intellij.util.ui.FormBuilder
 import com.intellij.util.ui.RadioButtonEnumModel
 import com.intellij.util.ui.UIUtil
+import java.awt.FlowLayout
 import javax.swing.ButtonGroup
 import javax.swing.JPanel
 
 class QmlRunConfigurationEditor : SettingsEditor<QmlRunConfiguration>() {
   private val filenameField = TextFieldWithBrowseButton()
-  private val sizeRadioPanel = JPanel()
+  private val sizeRadioPanel = JPanel(FlowLayout(FlowLayout.LEFT))
   private val sizeRadioModel: RadioButtonEnumModel<QmlSceneSize>
-  private val renderingRadioPanel = JPanel()
+  private val renderingRadioPanel = JPanel(FlowLayout(FlowLayout.LEFT))
   private val renderingRadioModel: RadioButtonEnumModel<QmlSceneRendering>
   private val slowAnimationsCheckbox = CheckBox("Slow animations")
 
@@ -26,14 +27,18 @@ class QmlRunConfigurationEditor : SettingsEditor<QmlRunConfiguration>() {
   private inline fun <reified T> createRadioGroup(panel: JPanel): RadioButtonEnumModel<T>
     where T : Enum<T>, T : QmlSceneOption {
     val group = ButtonGroup()
-    enumValues<T>().map { JBRadioButton(it.description) }.forEach {
-      it.setMnemonic(it.text.first())
+    enumValues<T>().map {
+      JBRadioButton(it.description).apply {
+        setMnemonic(it.description.first())
+        toolTipText = it.tooltip
+      }
+    }.forEach {
       panel.add(it)
       group.add(it)
     }
-    val model = RadioButtonEnumModel.bindEnum(T::class.java, group)
-    model.selected = enumValues<T>().first()
-    return model
+    return RadioButtonEnumModel.bindEnum(T::class.java, group).apply {
+      selected = enumValues<T>().first()
+    }
   }
 
   private val panel: JPanel by lazy {
