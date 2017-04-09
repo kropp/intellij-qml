@@ -30,6 +30,8 @@ Basic syntax support
         <lang.elementManipulator implementationClass="name.kropp.intellij.qml.psi.QmlFilenameManipulator"
             forClass="name.kropp.intellij.qml.psi.QmlFilename"/>
 
+        <configurationType implementation="name.kropp.intellij.qml.preview.QmlRunConfigurationType"/>
+
         <colorSettingsPage id="QML" implementation="name.kropp.intellij.qml.QmlColorSettingsPage"/>
     </extensions>
 
