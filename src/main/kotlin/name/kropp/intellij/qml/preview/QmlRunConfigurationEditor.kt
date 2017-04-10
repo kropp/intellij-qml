@@ -17,11 +17,14 @@ class QmlRunConfigurationEditor : SettingsEditor<QmlRunConfiguration>() {
   private val sizeRadioModel: RadioButtonEnumModel<QmlSceneSize>
   private val renderingRadioPanel = JPanel(FlowLayout(FlowLayout.LEFT))
   private val renderingRadioModel: RadioButtonEnumModel<QmlSceneRendering>
+  private val scalingRadioPanel = JPanel(FlowLayout(FlowLayout.LEFT))
+  private val scalingRadioModel: RadioButtonEnumModel<QmlSceneScaling>
   private val slowAnimationsCheckbox = CheckBox("Slow animations")
 
   init {
     sizeRadioModel = createRadioGroup(sizeRadioPanel)
     renderingRadioModel = createRadioGroup(renderingRadioPanel)
+    scalingRadioModel = createRadioGroup(scalingRadioPanel)
   }
 
   private inline fun <reified T> createRadioGroup(panel: JPanel): RadioButtonEnumModel<T>
@@ -49,6 +52,7 @@ class QmlRunConfigurationEditor : SettingsEditor<QmlRunConfiguration>() {
         .addLabeledComponent("&Filename", filenameField)
         .addLabeledComponent("&Window size", sizeRadioPanel)
         .addLabeledComponent("&Rendering", renderingRadioPanel)
+        .addLabeledComponent("&Scaling", scalingRadioPanel)
         .addComponent(slowAnimationsCheckbox)
         .panel
   }
