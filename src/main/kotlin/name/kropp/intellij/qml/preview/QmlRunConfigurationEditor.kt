@@ -12,6 +12,7 @@ import javax.swing.ButtonGroup
 import javax.swing.JPanel
 
 class QmlRunConfigurationEditor : SettingsEditor<QmlRunConfiguration>() {
+  private val qmlsceneField = TextFieldWithBrowseButton()
   private val filenameField = TextFieldWithBrowseButton()
   private val sizeRadioPanel = JPanel(FlowLayout(FlowLayout.LEFT))
   private val sizeRadioModel: RadioButtonEnumModel<QmlSceneSize>
@@ -49,6 +50,7 @@ class QmlRunConfigurationEditor : SettingsEditor<QmlRunConfiguration>() {
         .setAlignLabelOnRight(false)
         .setHorizontalGap(UIUtil.DEFAULT_HGAP)
         .setVerticalGap(UIUtil.DEFAULT_VGAP)
+        .addLabeledComponent("&qmlscene path", qmlsceneField)
         .addLabeledComponent("&Filename", filenameField)
         .addLabeledComponent("&Window size", sizeRadioPanel)
         .addLabeledComponent("&Rendering", renderingRadioPanel)
@@ -60,10 +62,22 @@ class QmlRunConfigurationEditor : SettingsEditor<QmlRunConfiguration>() {
   override fun createEditor() = panel
 
   override fun applyEditorTo(configuration: QmlRunConfiguration) {
-    //configuration.filename = filenameField.text
+    configuration.apply {
+      qmlscenePath = qmlsceneField.text
+      filename = filenameField.text
+      size = sizeRadioModel.selected
+      rendering = renderingRadioModel.selected
+      scaling = scalingRadioModel.selected
+      slowAnimations = slowAnimationsCheckbox.isSelected
+    }
   }
 
   override fun resetEditorFrom(configuration: QmlRunConfiguration) {
-    //filenameField.text = configuration.filename
+    qmlsceneField.text = configuration.qmlscenePath
+    filenameField.text = configuration.filename
+    sizeRadioModel.selected = configuration.size
+    renderingRadioModel.selected = configuration.rendering
+    scalingRadioModel.selected = configuration.scaling
+    slowAnimationsCheckbox.isSelected = configuration.slowAnimations
   }
 }
