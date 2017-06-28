@@ -1,15 +1,16 @@
 // This is a generated file. Not intended for manual editing.
 package name.kropp.intellij.qml.psi.impl;
 
-import java.util.List;
-import org.jetbrains.annotations.*;
+import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
-import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.util.PsiTreeUtil;
-import static name.kropp.intellij.qml.psi.QmlTypes.*;
-import com.intellij.extapi.psi.ASTWrapperPsiElement;
-import name.kropp.intellij.qml.psi.*;
+import name.kropp.intellij.qml.psi.QmlList;
+import name.kropp.intellij.qml.psi.QmlObject;
+import name.kropp.intellij.qml.psi.QmlVisitor;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.List;
 
 public class QmlListImpl extends ASTWrapperPsiElement implements QmlList {
 
@@ -24,6 +25,12 @@ public class QmlListImpl extends ASTWrapperPsiElement implements QmlList {
   public void accept(@NotNull PsiElementVisitor visitor) {
     if (visitor instanceof QmlVisitor) accept((QmlVisitor)visitor);
     else super.accept(visitor);
+  }
+
+  @Override
+  @NotNull
+  public List<QmlList> getListList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, QmlList.class);
   }
 
   @Override

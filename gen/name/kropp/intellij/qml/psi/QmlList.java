@@ -8,6 +8,9 @@ import java.util.List;
 public interface QmlList extends QmlPsiElement {
 
   @NotNull
+  List<QmlList> getListList();
+
+  @NotNull
   List<QmlObject> getObjectList();
 
 }

@@ -1,15 +1,15 @@
 // This is a generated file. Not intended for manual editing.
 package name.kropp.intellij.qml;
 
+import com.intellij.lang.ASTNode;
+import com.intellij.lang.LightPsiParser;
 import com.intellij.lang.PsiBuilder;
 import com.intellij.lang.PsiBuilder.Marker;
-import static name.kropp.intellij.qml.psi.QmlTypes.*;
-import static com.intellij.lang.parser.GeneratedParserUtilBase.*;
-import com.intellij.psi.tree.IElementType;
-import com.intellij.lang.ASTNode;
-import com.intellij.psi.tree.TokenSet;
 import com.intellij.lang.PsiParser;
-import com.intellij.lang.LightPsiParser;
+import com.intellij.psi.tree.IElementType;
+
+import static com.intellij.lang.parser.GeneratedParserUtilBase.*;
+import static name.kropp.intellij.qml.psi.QmlTypes.*;
 
 @SuppressWarnings({"SimplifiableIfStatement", "UnusedAssignment"})
 public class QmlParser implements PsiParser, LightPsiParser {
@@ -177,20 +177,14 @@ public class QmlParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // method_call|method_body|list|object|string|boolean|number|identifier|value
+  // method_call|method_body|item
   static boolean attribute_value(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "attribute_value")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = method_call(b, l + 1);
     if (!r) r = method_body(b, l + 1);
-    if (!r) r = list(b, l + 1);
-    if (!r) r = object(b, l + 1);
-    if (!r) r = consumeToken(b, STRING);
-    if (!r) r = boolean_$(b, l + 1);
-    if (!r) r = number(b, l + 1);
-    if (!r) r = consumeToken(b, IDENTIFIER);
-    if (!r) r = consumeToken(b, VALUE);
+    if (!r) r = item(b, l + 1);
     exit_section_(b, m, null, r);
     return r;
   }
@@ -343,6 +337,23 @@ public class QmlParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
+  // list|object|string|boolean|number|identifier|value
+  static boolean item(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "item")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = list(b, l + 1);
+    if (!r) r = object(b, l + 1);
+    if (!r) r = consumeToken(b, STRING);
+    if (!r) r = boolean_$(b, l + 1);
+    if (!r) r = number(b, l + 1);
+    if (!r) r = consumeToken(b, IDENTIFIER);
+    if (!r) r = consumeToken(b, VALUE);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  /* ********************************************************** */
   // ('{' javascript '}'|'var'|'['|']'|'('|')'|','|':'|';'|string|identifier|number|value)*
   public static boolean javascript(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "javascript")) return false;
@@ -399,7 +410,7 @@ public class QmlParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // '[' object? (',' object)* ']'
+  // '[' item? (',' item)* ']'
   public static boolean list(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "list")) return false;
     if (!nextTokenIs(b, LBRACKET)) return false;
@@ -413,14 +424,14 @@ public class QmlParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // object?
+  // item?
   private static boolean list_1(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "list_1")) return false;
-    object(b, l + 1);
+    item(b, l + 1);
     return true;
   }
 
-  // (',' object)*
+  // (',' item)*
   private static boolean list_2(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "list_2")) return false;
     int c = current_position_(b);
@@ -432,13 +443,13 @@ public class QmlParser implements PsiParser, LightPsiParser {
     return true;
   }
 
-  // ',' object
+  // ',' item
   private static boolean list_2_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "list_2_0")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = consumeToken(b, COMMA);
-    r = r && object(b, l + 1);
+    r = r && item(b, l + 1);
     exit_section_(b, m, null, r);
     return r;
   }
