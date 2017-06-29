@@ -4,15 +4,12 @@ import com.intellij.ide.structureView.StructureViewTreeElement
 import com.intellij.ide.util.treeView.smartTree.TreeElement
 import com.intellij.navigation.NavigationItem
 import name.kropp.intellij.qml.psi.QmlAttributeAssignment
-import name.kropp.intellij.qml.psi.QmlObject
 
-class QmlStructureViewElement(private val element: QmlObject) : StructureViewTreeElement {
-  override fun getPresentation() = QmlObjectStructureViewPresentation(element)
+class QmlStructureViewPropertyElement(private val element: QmlAttributeAssignment) : StructureViewTreeElement {
+  override fun getPresentation() = QmlAttributeStructureViewPresentation(element)
 
   override fun getChildren(): Array<TreeElement> {
-    return element.body.children.filterIsInstance<QmlAttributeAssignment>().map {
-      it.`object`?.let { QmlStructureViewElement(it) } ?: QmlStructureViewPropertyElement(it)
-    }.toTypedArray()
+    return element.`object`?.let { arrayOf<TreeElement>(QmlStructureViewElement(it)) } ?: emptyArray()
   }
 
   override fun getValue() = element
