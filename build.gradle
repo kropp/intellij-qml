@@ -1,5 +1,5 @@
 buildscript {
-    ext.kotlin_version = '1.1.51'
+    ext.kotlin_version = '1.2.0'
 
     repositories {
         mavenCentral()
@@ -20,7 +20,7 @@ group 'name.kropp.intellij'
 version '0.3'
 
 intellij {
-    version '2017.1'
+    version '2017.3'
     pluginName rootProject.name
     updateSinceUntilBuild false
 }
