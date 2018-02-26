@@ -13,7 +13,7 @@ qmlscene run configuration
     ]]>
     </change-notes>
 
-    <idea-version since-build="171.0" until-build="173.*" />
+    <idea-version since-build="173.0" until-build="183.*" />
 
     <depends>com.intellij.modules.lang</depends>
 
