@@ -1,7 +1,7 @@
 <idea-plugin>
     <id>name.kropp.intellij.qml</id>
     <name>QML support</name>
-    <version>0.3</version>
+    <version>0.3.2</version>
     <vendor email="victor.kropp@gmail.com" url="https://victor.kropp.name/projects/intellij-qml/">Victor Kropp</vendor>
 
     <description><![CDATA[
@@ -9,11 +9,11 @@ Support for Qt QML
     ]]></description>
 
     <change-notes><![CDATA[
-qmlscene run configuration
+Support for 2018 release
     ]]>
     </change-notes>
 
-    <idea-version since-build="173.0" until-build="183.*" />
+    <idea-version since-build="181.0" until-build="183.*" />
 
     <depends>com.intellij.modules.lang</depends>
 
