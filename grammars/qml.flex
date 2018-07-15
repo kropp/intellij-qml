@@ -36,6 +36,7 @@ STRING="\""[^\"]*"\""
 {BLOCK_COMMENT}        { return BLOCK_COMMENT; }
 {WHITESPACE}           { return WHITE_SPACE; }
 "import"               { return KEYWORD_IMPORT; }
+"alias"                { return KEYWORD_ALIAS; }
 "as"                   { return KEYWORD_AS; }
 "true"                 { return TRUE; }
 "false"                { return FALSE; }

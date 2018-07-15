@@ -40,8 +40,8 @@ public interface QmlTypes {
   IElementType FALSE = new QmlTokenType("false");
   IElementType FLOAT = new QmlTokenType("float");
   IElementType IDENTIFIER = new QmlTokenType("identifier");
-  IElementType IMPORT_$ = new QmlTokenType("import_$");
   IElementType INTEGER = new QmlTokenType("integer");
+  IElementType KEYWORD_ALIAS = new QmlTokenType("alias");
   IElementType KEYWORD_AS = new QmlTokenType("as");
   IElementType KEYWORD_DEFAULT = new QmlTokenType("default");
   IElementType KEYWORD_DOUBLE = new QmlTokenType("double");

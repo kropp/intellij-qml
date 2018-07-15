@@ -1,16 +1,15 @@
 // This is a generated file. Not intended for manual editing.
 package name.kropp.intellij.qml.psi.impl;
 
-import com.intellij.extapi.psi.ASTWrapperPsiElement;
+import java.util.List;
+import org.jetbrains.annotations.*;
 import com.intellij.lang.ASTNode;
+import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.util.PsiTreeUtil;
-import name.kropp.intellij.qml.psi.QmlList;
-import name.kropp.intellij.qml.psi.QmlObject;
-import name.kropp.intellij.qml.psi.QmlVisitor;
-import org.jetbrains.annotations.NotNull;
-
-import java.util.List;
+import static name.kropp.intellij.qml.psi.QmlTypes.*;
+import com.intellij.extapi.psi.ASTWrapperPsiElement;
+import name.kropp.intellij.qml.psi.*;
 
 public class QmlListImpl extends ASTWrapperPsiElement implements QmlList {
 

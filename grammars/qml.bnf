@@ -14,6 +14,7 @@
 
   tokens = [
     KEYWORD_IMPORT = 'import'
+    KEYWORD_ALIAS = 'alias'
     KEYWORD_AS = 'as'
     KEYWORD_DEFAULT = 'default'
     KEYWORD_PROPERTY = 'property'
@@ -59,7 +60,7 @@ attribute_assignment ::= (attribute ':')? attribute_value ';'?
 private item ::= list|object|string|boolean|number|identifier|value
 private attribute_value ::= method_call|method_body|item
 
-property_definition ::= 'default'? 'readonly'? 'property' ('var'|type) property (':' attribute_value)?
+property_definition ::= 'default'? 'readonly'? 'property' ('alias'|'var'|type) property (':' attribute_value)?
 signal_definition ::= 'signal' signal ('(' (signal_parameter ',')* signal_parameter? ')')?
 signal_parameter ::= ('var'|type) parameter
 
