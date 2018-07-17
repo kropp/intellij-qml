@@ -27,6 +27,7 @@ END_OF_LINE_COMMENT="//"[^\n]*
 BLOCK_COMMENT="/*" ( ([^"*"]|[\r\n])* ("*"+ [^"*""/"] )? )* ("*" | "*"+"/")?
 WHITESPACE=[ \t\n]+
 STRING="\""[^\"]*"\""
+SQ_STRING="\'"[^\']*"\'"
 
 %state IMPORT
 
@@ -61,6 +62,7 @@ STRING="\""[^\"]*"\""
 [0-9]+                 { return INTEGER; }
 [a-zA-Z0-9\.]+         { return IDENTIFIER; }
 {STRING}               { return STRING; }
+{SQ_STRING}            { return STRING; }
 [a-zA-Z0-9\.\+\/\*\&\=\-\>\<]+   { return VALUE; }
 
 
