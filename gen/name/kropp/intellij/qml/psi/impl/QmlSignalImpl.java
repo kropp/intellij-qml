@@ -13,7 +13,7 @@ import name.kropp.intellij.qml.psi.*;
 
 public class QmlSignalImpl extends ASTWrapperPsiElement implements QmlSignal {
 
-  public QmlSignalImpl(ASTNode node) {
+  public QmlSignalImpl(@NotNull ASTNode node) {
     super(node);
   }
 

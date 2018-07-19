@@ -24,6 +24,8 @@
     KEYWORD_FUNCTION = 'function'
     KEYWORD_DOUBLE = 'double'
     KEYWORD_REAL = 'real'
+    KEYWORD_PRAGMA = 'pragma'
+    KEYWORD_SINGLETON = 'Singleton'
     LBRACE = '{'
     RBRACE = '}'
     LBRACKET = '['
@@ -40,8 +42,9 @@
   psiImplUtilClass = "name.kropp.intellij.qml.psi.QmlPsiImplUtil"
 }
 
-qml ::= imports object
+qml ::= pragma? imports object
 
+pragma ::= 'pragma' 'Singleton'
 imports ::= import*
 import ::= 'import' (module version? | filename) ('as' qualifier)?
 version ::= float // version_major '.' version_minor actually

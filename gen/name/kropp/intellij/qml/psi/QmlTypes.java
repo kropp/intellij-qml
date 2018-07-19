@@ -26,6 +26,7 @@ public interface QmlTypes {
   IElementType MODULE = new QmlElementType("MODULE");
   IElementType OBJECT = new QmlElementType("OBJECT");
   IElementType PARAMETER = new QmlElementType("PARAMETER");
+  IElementType PRAGMA = new QmlElementType("PRAGMA");
   IElementType PROPERTY = new QmlElementType("PROPERTY");
   IElementType PROPERTY_DEFINITION = new QmlElementType("PROPERTY_DEFINITION");
   IElementType QUALIFIER = new QmlElementType("QUALIFIER");
@@ -47,10 +48,12 @@ public interface QmlTypes {
   IElementType KEYWORD_DOUBLE = new QmlTokenType("double");
   IElementType KEYWORD_FUNCTION = new QmlTokenType("function");
   IElementType KEYWORD_IMPORT = new QmlTokenType("import");
+  IElementType KEYWORD_PRAGMA = new QmlTokenType("pragma");
   IElementType KEYWORD_PROPERTY = new QmlTokenType("property");
   IElementType KEYWORD_READONLY = new QmlTokenType("readonly");
   IElementType KEYWORD_REAL = new QmlTokenType("real");
   IElementType KEYWORD_SIGNAL = new QmlTokenType("signal");
+  IElementType KEYWORD_SINGLETON = new QmlTokenType("Singleton");
   IElementType KEYWORD_VAR = new QmlTokenType("var");
   IElementType LBRACE = new QmlTokenType("{");
   IElementType LBRACKET = new QmlTokenType("[");
@@ -119,6 +122,9 @@ public interface QmlTypes {
       }
       else if (type == PARAMETER) {
         return new QmlParameterImpl(node);
+      }
+      else if (type == PRAGMA) {
+        return new QmlPragmaImpl(node);
       }
       else if (type == PROPERTY) {
         return new QmlPropertyImpl(node);

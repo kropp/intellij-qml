@@ -13,7 +13,7 @@ import name.kropp.intellij.qml.psi.*;
 
 public class QmlLineCommentImpl extends ASTWrapperPsiElement implements QmlLineComment {
 
-  public QmlLineCommentImpl(ASTNode node) {
+  public QmlLineCommentImpl(@NotNull ASTNode node) {
     super(node);
   }
 

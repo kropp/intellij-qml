@@ -77,6 +77,9 @@ public class QmlParser implements PsiParser, LightPsiParser {
     else if (t == PARAMETER) {
       r = parameter(b, 0);
     }
+    else if (t == PRAGMA) {
+      r = pragma(b, 0);
+    }
     else if (t == PROPERTY) {
       r = property(b, 0);
     }
@@ -610,6 +613,18 @@ public class QmlParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
+  // 'pragma' 'Singleton'
+  public static boolean pragma(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "pragma")) return false;
+    if (!nextTokenIs(b, KEYWORD_PRAGMA)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeTokens(b, 0, KEYWORD_PRAGMA, KEYWORD_SINGLETON);
+    exit_section_(b, m, PRAGMA, r);
+    return r;
+  }
+
+  /* ********************************************************** */
   // identifier
   public static boolean property(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "property")) return false;
@@ -682,15 +697,23 @@ public class QmlParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // imports object
+  // pragma? imports object
   static boolean qml(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "qml")) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = imports(b, l + 1);
+    r = qml_0(b, l + 1);
+    r = r && imports(b, l + 1);
     r = r && object(b, l + 1);
     exit_section_(b, m, null, r);
     return r;
+  }
+
+  // pragma?
+  private static boolean qml_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "qml_0")) return false;
+    pragma(b, l + 1);
+    return true;
   }
 
   /* ********************************************************** */

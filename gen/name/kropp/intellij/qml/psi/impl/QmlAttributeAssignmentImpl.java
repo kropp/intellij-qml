@@ -13,7 +13,7 @@ import name.kropp.intellij.qml.psi.*;
 
 public class QmlAttributeAssignmentImpl extends ASTWrapperPsiElement implements QmlAttributeAssignment {
 
-  public QmlAttributeAssignmentImpl(ASTNode node) {
+  public QmlAttributeAssignmentImpl(@NotNull ASTNode node) {
     super(node);
   }
 

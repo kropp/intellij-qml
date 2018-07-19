@@ -13,7 +13,7 @@ import name.kropp.intellij.qml.psi.*;
 
 public class QmlMethodAttributeImpl extends ASTWrapperPsiElement implements QmlMethodAttribute {
 
-  public QmlMethodAttributeImpl(ASTNode node) {
+  public QmlMethodAttributeImpl(@NotNull ASTNode node) {
     super(node);
   }
 

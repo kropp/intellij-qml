@@ -13,7 +13,7 @@ import name.kropp.intellij.qml.psi.*;
 
 public class QmlBlockCommentImpl extends ASTWrapperPsiElement implements QmlBlockComment {
 
-  public QmlBlockCommentImpl(ASTNode node) {
+  public QmlBlockCommentImpl(@NotNull ASTNode node) {
     super(node);
   }
 

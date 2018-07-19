@@ -13,7 +13,7 @@ import name.kropp.intellij.qml.psi.*;
 
 public class QmlVersionImpl extends ASTWrapperPsiElement implements QmlVersion {
 
-  public QmlVersionImpl(ASTNode node) {
+  public QmlVersionImpl(@NotNull ASTNode node) {
     super(node);
   }
 

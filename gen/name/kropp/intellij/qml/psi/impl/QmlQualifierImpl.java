@@ -13,7 +13,7 @@ import name.kropp.intellij.qml.psi.*;
 
 public class QmlQualifierImpl extends ASTWrapperPsiElement implements QmlQualifier {
 
-  public QmlQualifierImpl(ASTNode node) {
+  public QmlQualifierImpl(@NotNull ASTNode node) {
     super(node);
   }
 

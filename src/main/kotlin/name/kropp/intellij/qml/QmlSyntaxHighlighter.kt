@@ -35,7 +35,7 @@ class QmlSyntaxHighlighter : SyntaxHighlighterBase() {
 
   override fun getTokenHighlights(tokenType: IElementType) = when(tokenType) {
     QmlTypes.LINE_COMMENT, QmlTypes.BLOCK_COMMENT -> COMMENT_KEYS
-    QmlTypes.KEYWORD_IMPORT, QmlTypes.KEYWORD_ALIAS, QmlTypes.KEYWORD_AS, QmlTypes.KEYWORD_VAR, QmlTypes.KEYWORD_PROPERTY, QmlTypes.KEYWORD_DEFAULT, QmlTypes.KEYWORD_READONLY, QmlTypes.KEYWORD_SIGNAL, QmlTypes.KEYWORD_FUNCTION -> KEYWORD_KEYS
+    QmlTypes.KEYWORD_IMPORT, QmlTypes.KEYWORD_ALIAS, QmlTypes.KEYWORD_AS, QmlTypes.KEYWORD_VAR, QmlTypes.KEYWORD_PROPERTY, QmlTypes.KEYWORD_DEFAULT, QmlTypes.KEYWORD_READONLY, QmlTypes.KEYWORD_SIGNAL, QmlTypes.KEYWORD_FUNCTION, QmlTypes.KEYWORD_PRAGMA -> KEYWORD_KEYS
     QmlTypes.STRING -> STRING_KEYS
     QmlTypes.INTEGER, QmlTypes.FLOAT -> NUMBER_KEYS
     QmlTypes.TRUE, QmlTypes.FALSE -> BOOLEAN_KEYS

@@ -13,7 +13,7 @@ import name.kropp.intellij.qml.psi.*;
 
 public class QmlFilenameImpl extends QmlFilenameMixin implements QmlFilename {
 
-  public QmlFilenameImpl(ASTNode node) {
+  public QmlFilenameImpl(@NotNull ASTNode node) {
     super(node);
   }
 
@@ -27,7 +27,7 @@ public class QmlFilenameImpl extends QmlFilenameMixin implements QmlFilename {
   }
 
   @NotNull
-  public QmlFilename updateText(String newText) {
+  public QmlFilename updateText(@NotNull String newText) {
     return QmlPsiImplUtil.updateText(this, newText);
   }
 
