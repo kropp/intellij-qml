@@ -13,7 +13,7 @@ import com.intellij.openapi.project.Project
 import org.jdom.Element
 import java.io.File
 
-class QmlRunConfiguration(project: Project, factory: QmlRunConfigurationFactory, name: String) : LocatableConfigurationBase(project, factory, name) {
+class QmlRunConfiguration(project: Project, factory: QmlRunConfigurationFactory, name: String) : LocatableConfigurationBase<RunProfileState>(project, factory, name) {
   var qmlscenePath: String = ""
   var filename: String = ""
   var size: QmlSceneSize = QmlSceneSize.None
@@ -36,9 +36,9 @@ class QmlRunConfiguration(project: Project, factory: QmlRunConfigurationFactory,
     super.readExternal(element)
     qmlscenePath = element.getAttributeValue(QMLSCENE) ?: ""
     filename = element.getAttributeValue(FILENAME) ?: ""
-    size = enumValueOf<QmlSceneSize>(element.getAttributeValue(SIZE))
-    rendering = enumValueOf<QmlSceneRendering>(element.getAttributeValue(RENDERING))
-    scaling = enumValueOf<QmlSceneScaling>(element.getAttributeValue(SCALING))
+    size = enumValueOf(element.getAttributeValue(SIZE))
+    rendering = enumValueOf(element.getAttributeValue(RENDERING))
+    scaling = enumValueOf(element.getAttributeValue(SCALING))
     slowAnimations = element.getAttributeValue(SLOW_ANIMATIONS) == "true"
   }
 
