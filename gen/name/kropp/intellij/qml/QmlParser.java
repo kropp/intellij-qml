@@ -180,13 +180,31 @@ public class QmlParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // method_call|method_body|item
+  // method_call|method_body|item|value+
   static boolean attribute_value(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "attribute_value")) return false;
     boolean r;
+    Marker m = enter_section_(b);
     r = method_call(b, l + 1);
     if (!r) r = method_body(b, l + 1);
     if (!r) r = item(b, l + 1);
+    if (!r) r = attribute_value_3(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // value+
+  private static boolean attribute_value_3(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "attribute_value_3")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, VALUE);
+    while (r) {
+      int c = current_position_(b);
+      if (!consumeToken(b, VALUE)) break;
+      if (!empty_element_parsed_guard_(b, "attribute_value_3", c)) break;
+    }
+    exit_section_(b, m, null, r);
     return r;
   }
 
