@@ -1,6 +1,6 @@
-# QML support for IntelliJ-based IDEs
+**Plugin is no longer supported**
 
-[![Build status](https://teamcity.jetbrains.com/app/rest/builds/buildType:(id:IntellijIdeaPlugins_Qml_Build)/statusIcon.svg)](https://teamcity.jetbrains.com/viewType.html?buildTypeId=IntellijIdeaPlugins_Qml_Build)
+# QML support for IntelliJ-based IDEs
 
 [QML support plugin](https://plugins.jetbrains.com/plugin/9532-qml-support)
 
